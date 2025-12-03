@@ -1,0 +1,156 @@
+/* Layout */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* Header */
+header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-xl);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    background: var(--white);
+    padding: var(--spacing-sm);
+    border-radius: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    overflow-x: auto;
+}
+
+.tab {
+    padding: 12px 24px;
+    border: none;
+    background: var(--gray-100);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.tab.active {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+.tab:hover {
+    transform: translateY(-2px);
+}
+
+/* Content Sections */
+.content-section {
+    display: none;
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.content-section.active {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+/* Chart Container */
+.chart-container {
+    background: var(--gray-50);
+    padding: var(--spacing-lg);
+    border-radius: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Survey List */
+.survey-list {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.survey-item {
+    background: var(--gray-50);
+    padding: var(--spacing-lg);
+    border-radius: var(--spacing-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.survey-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-sm);
+}
+
+.survey-info h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.survey-meta {
+    color: var(--gray-600);
+    font-size: 0.9em;
+}
+
+/* Client List */
+.client-list {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.client-card {
+    background: var(--gray-50);
+    padding: var(--spacing-lg);
+    border-radius: var(--spacing-sm);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.client-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+/* Feedback Items */
+.feedback-item {
+    background: var(--gray-50);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-sm);
+    border-left: 4px solid var(--primary-color);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Export Options */
+.export-options {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}

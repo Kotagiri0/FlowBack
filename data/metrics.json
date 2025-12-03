@@ -1,0 +1,113 @@
+{
+  "overview": {
+    "nps": {
+      "current": 67,
+      "previous": 62,
+      "change": 5,
+      "trend": "up",
+      "history": {
+        "labels": ["Янв", "Фев", "Мар", "Апр", "Май", "Июнь"],
+        "values": [54, 58, 61, 62, 67, 70]
+      },
+      "byRole": {
+        "lpr": 72,
+        "tech": 65,
+        "business": 58
+      },
+      "distribution": {
+        "promoters": 45,
+        "passives": 32,
+        "detractors": 23
+      }
+    },
+    "csat": {
+      "current": 4.3,
+      "previous": 4.1,
+      "change": 0.2,
+      "trend": "up",
+      "scale": 5,
+      "history": {
+        "labels": ["Янв", "Фев", "Мар", "Апр", "Май", "Июнь"],
+        "values": [4.0, 4.1, 4.2, 4.1, 4.3, 4.4]
+      },
+      "byRole": {
+        "lpr": 4.5,
+        "tech": 4.2,
+        "business": 4.1
+      }
+    },
+    "ces": {
+      "current": 2.1,
+      "previous": 2.4,
+      "change": -0.3,
+      "trend": "down",
+      "scale": 5,
+      "note": "Чем ниже, тем лучше",
+      "history": {
+        "labels": ["Янв", "Фев", "Мар", "Апр", "Май", "Июнь"],
+        "values": [2.8, 2.6, 2.5, 2.4, 2.1, 2.0]
+      },
+      "byRole": {
+        "lpr": 1.8,
+        "tech": 2.2,
+        "business": 2.3
+      }
+    },
+    "responses": {
+      "current": 342,
+      "period": "30 дней",
+      "total": 1250,
+      "responseRate": 68,
+      "averageTime": "3.5 минуты"
+    }
+  },
+  "surveys": {
+    "active": 12,
+    "paused": 3,
+    "draft": 5,
+    "total": 20
+  },
+  "engagement": {
+    "emailOpenRate": 72,
+    "emailClickRate": 45,
+    "telegramResponseRate": 85,
+    "webFormCompletionRate": 60
+  },
+  "timeline": [
+    {
+      "date": "2024-11-01",
+      "nps": 65,
+      "csat": 4.2,
+      "ces": 2.3,
+      "responses": 45
+    },
+    {
+      "date": "2024-11-08",
+      "nps": 66,
+      "csat": 4.3,
+      "ces": 2.2,
+      "responses": 52
+    },
+    {
+      "date": "2024-11-15",
+      "nps": 67,
+      "csat": 4.3,
+      "ces": 2.1,
+      "responses": 48
+    },
+    {
+      "date": "2024-11-22",
+      "nps": 68,
+      "csat": 4.4,
+      "ces": 2.0,
+      "responses": 55
+    },
+    {
+      "date": "2024-11-29",
+      "nps": 70,
+      "csat": 4.5,
+      "ces": 1.9,
+      "responses": 58
+    }
+  ]
+}

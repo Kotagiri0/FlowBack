@@ -1,0 +1,218 @@
+/* Components */
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: var(--gray-200);
+    color: var(--gray-800);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-400);
+}
+
+/* Badge */
+.badge {
+    background: var(--secondary-gradient);
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+}
+
+/* Role Tags */
+.role-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: var(--spacing-sm);
+}
+
+.role-tag {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: var(--font-size-sm);
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gray-800);
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Cards */
+.metric-card {
+    background: var(--primary-gradient);
+    color: var(--white);
+    padding: 25px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.metric-card h3 {
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-bottom: var(--spacing-sm);
+    color: var(--white);
+}
+
+.metric-value {
+    font-size: var(--font-size-2xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+}
+
+.metric-change {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background: var(--gray-200);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: var(--spacing-sm);
+}
+
+.progress-fill {
+    background: var(--primary-gradient);
+    height: 100%;
+    transition: width 0.3s;
+}
+
+/* Question Builder */
+.question-builder {
+    background: var(--gray-50);
+    padding: var(--spacing-lg);
+    border-radius: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.question-item {
+    background: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-sm);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Trigger Config */
+.trigger-config {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.trigger-item {
+    background: var(--gray-50);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.trigger-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.trigger-item.selected {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+/* Sentiment Tags */
+.sentiment {
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+}
+
+.sentiment.positive {
+    background: var(--success);
+    color: var(--white);
+}
+
+.sentiment.neutral {
+    background: var(--warning);
+    color: var(--white);
+}
+
+.sentiment.negative {
+    background: var(--error);
+    color: var(--white);
+}
+
+/* Rating Input */
+.rating-input {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
+}
+
+.rating-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.rating-btn:hover,
+.rating-btn.selected {
+    background: var(--primary-color);
+    color: var(--white);
+}

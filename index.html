@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowBack - Система сбора фидбека</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="container">
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>🔄 FlowBack</h1>
+        <p style="color: #666; margin-top: 5px;">Система сбора и анализа клиентского фидбека</p>
+      </div>
+      <div class="user-info">
+        <span class="badge">Pro Account</span>
+        <span style="color: #666;">Админ: Иван Петров</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <div class="nav-tabs">
+    <button class="tab active" data-tab="dashboard">📊 Дашборд</button>
+    <button class="tab" data-tab="surveys">📝 Опросы</button>
+    <button class="tab" data-tab="create">➕ Создать опрос</button>
+    <button class="tab" data-tab="clients">👥 Клиенты</button>
+    <button class="tab" data-tab="analytics">📈 Аналитика</button>
+    <button class="tab" data-tab="feedback">💬 Фидбек</button>
+    <button class="tab" data-tab="settings">⚙️ Настройки</button>
+  </div>
+
+  <!-- Dashboard Section -->
+  <div id="dashboard" class="content-section active"></div>
+
+  <!-- Surveys Section -->
+  <div id="surveys" class="content-section"></div>
+
+  <!-- Create Survey Section -->
+  <div id="create" class="content-section"></div>
+
+  <!-- Clients Section -->
+  <div id="clients" class="content-section"></div>
+
+  <!-- Analytics Section -->
+  <div id="analytics" class="content-section"></div>
+
+  <!-- Feedback Section -->
+  <div id="feedback" class="content-section"></div>
+
+  <!-- Settings Section -->
+  <div id="settings" class="content-section"></div>
+</div>
+
+<!-- Modals -->
+<div id="addClient" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Добавить клиента</h3>
+      <button class="close-modal" data-modal="addClient">×</button>
+    </div>
+    <div class="form-group">
+      <label>Название компании</label>
+      <input type="text" placeholder="ООО "…"" id="clientCompany">
+    </div>
+    <div class="form-group">
+      <label>Контактное лицо</label>
+      <input type="text" placeholder="Имя Фамилия" id="clientContact">
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="email@company.ru" id="clientEmail">
+    </div>
+    <div class="form-group">
+      <label>Роли</label>
+      <select multiple id="clientRoles">
+        <option>ЛПР</option>
+        <option>Техспец</option>
+        <option>Бизнес-юзер</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="ClientManager.addClient()">Добавить</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/state.js"></script>
+<script src="js/api.js"></script>
+<script src="js/modals.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/surveys.js"></script>
+<script src="js/clients.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/feedback.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

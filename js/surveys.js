@@ -1,0 +1,106 @@
+{
+  "surveys": [
+  {
+    "id": 1,
+    "name": "После демонстрации продукта",
+    "description": "Опрос для оценки впечатлений после демо",
+    "targetAudience": "ЛПР",
+    "metrics": ["NPS", "CSAT"],
+    "status": "active",
+    "responses": 42,
+    "responseRate": 68,
+    "trigger": "after_demo",
+    "triggerDelay": 24,
+    "channels": ["email", "telegram"],
+    "questions": [
+      {
+        "id": 1,
+        "type": "nps",
+        "question": "Насколько вероятно, что вы порекомендуете наш продукт коллегам?",
+        "required": true
+      },
+      {
+        "id": 2,
+        "type": "rating",
+        "question": "Насколько вы удовлетворены демонстрацией?",
+        "scale": 5,
+        "required": true
+      },
+      {
+        "id": 3,
+        "type": "text",
+        "question": "Что можно улучшить в продукте?",
+        "required": false
+      }
+    ],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-20T15:30:00Z"
+  },
+  {
+    "id": 2,
+    "name": "Оценка спринта (техспецы)",
+    "description": "Сбор фидбека от технических специалистов после завершения спринта",
+    "targetAudience": "Технические специалисты",
+    "metrics": ["CES", "кастомные вопросы"],
+    "status": "active",
+    "responses": 28,
+    "responseRate": 72,
+    "trigger": "after_sprint",
+    "triggerDelay": 0,
+    "channels": ["email", "telegram", "web_form"],
+    "questions": [
+      {
+        "id": 1,
+        "type": "ces",
+        "question": "Насколько легко было работать с системой в этом спринте?",
+        "required": true
+      },
+      {
+        "id": 2,
+        "type": "text",
+        "question": "Какие технические проблемы возникли?",
+        "required": false
+      },
+      {
+        "id": 3,
+        "type": "multiselect",
+        "question": "Какие функции требуют улучшения?",
+        "options": ["API", "Документация", "Производительность", "UI/UX", "Безопасность"],
+        "required": false
+      }
+    ],
+    "createdAt": "2024-02-10T09:00:00Z",
+    "updatedAt": "2024-11-25T12:00:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Удовлетворенность релизом",
+    "description": "Оценка качества последнего релиза",
+    "targetAudience": "Бизнес-пользователи",
+    "metrics": ["CSAT"],
+    "status": "paused",
+    "responses": 15,
+    "responseRate": 45,
+    "trigger": "after_release",
+    "triggerDelay": 48,
+    "channels": ["email"],
+    "questions": [
+      {
+        "id": 1,
+        "type": "rating",
+        "question": "Насколько вы удовлетворены новыми функциями?",
+        "scale": 5,
+        "required": true
+      },
+      {
+        "id": 2,
+        "type": "text",
+        "question": "Какие функции оказались наиболее полезными?",
+        "required": false
+      }
+    ],
+    "createdAt": "2024-03-05T14:00:00Z",
+    "updatedAt": "2024-11-15T10:00:00Z"
+  }
+]
+}

@@ -1,0 +1,56 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--gray-800);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: var(--font-size-xl);
+}
+
+h2 {
+    font-size: 1.5em;
+    color: var(--gray-800);
+}
+
+h3 {
+    font-size: 1.2em;
+    color: var(--gray-800);
+}
+
+p {
+    line-height: 1.6;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+input, select, textarea {
+    font-family: inherit;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
