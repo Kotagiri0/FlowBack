@@ -1,24 +1,29 @@
 // Survey Manager
 const SurveyManager = {
-  selectedTriggers: [],
+    selectedTriggers: [],
 
-  async render() {
-    const surveys = await API.getSurveys();
+    async render() {
+        if (typeof document === 'undefined') return;
+        if (!API?.getSurveys) return;
 
-    const surveysSection = document.getElementById('surveys');
-    surveysSection.innerHTML = `
+        const surveys = await API.getSurveys();
+
+        const surveysSection = document.getElementById('surveys');
+        if (!surveysSection) return;
+
+        surveysSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Управление опросами</h2>
       <div class="survey-list">
         ${surveys.map(survey => this.renderSurveyItem(survey)).join('')}
       </div>
     `;
-  },
+    },
 
-  renderSurveyItem(survey) {
-    const statusEmoji = survey.status === 'active' ? '✅' : '⏸️';
-    const statusText = survey.status === 'active' ? 'Активен' : 'Приостановлен';
+    renderSurveyItem(survey) {
+        const statusEmoji = survey.status === 'active' ? '✅' : '⏸️';
+        const statusText = survey.status === 'active' ? 'Активен' : 'Приостановлен';
 
-    return `
+        return `
       <div class="survey-item">
         <div class="survey-info">
           <h3>${survey.name}</h3>
@@ -37,11 +42,15 @@ const SurveyManager = {
         </div>
       </div>
     `;
-  },
+    },
 
-  async renderCreateForm() {
-    const createSection = document.getElementById('create');
-    createSection.innerHTML = `
+    async renderCreateForm() {
+        if (typeof document === 'undefined') return;
+
+        const createSection = document.getElementById('create');
+        if (!createSection) return;
+
+        createSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Создать новый опрос</h2>
 
       <div class="form-group">
@@ -126,43 +135,53 @@ const SurveyManager = {
         Создать опрос
       </button>
     `;
-  },
+    },
 
-  toggleTrigger(element, triggerId) {
-    element.classList.toggle('selected');
+    toggleTrigger(element, triggerId) {
+        if (!element) return;
 
-    const index = this.selectedTriggers.indexOf(triggerId);
-    if (index > -1) {
-      this.selectedTriggers.splice(index, 1);
-    } else {
-      this.selectedTriggers.push(triggerId);
+        element.classList.toggle('selected');
+
+        const index = this.selectedTriggers.indexOf(triggerId);
+        if (index > -1) {
+            this.selectedTriggers.splice(index, 1);
+        } else {
+            this.selectedTriggers.push(triggerId);
+        }
+    },
+
+    async createSurvey() {
+        if (typeof document === 'undefined') return;
+        if (!API?.createSurvey) return;
+
+        const surveyData = {
+            name: document.getElementById('surveyName')?.value || '',
+            targetAudience: document.getElementById('surveyAudience')?.value || '',
+            metric: document.getElementById('surveyMetric')?.value || '',
+            triggers: this.selectedTriggers,
+            status: 'active',
+            responses: 0
+        };
+
+        if (!surveyData.name) {
+            Utils?.showNotification?.('Введите название опроса', 'error');
+            return;
+        }
+
+        const result = await API.createSurvey(surveyData);
+        if (result?.ok) {
+            Utils?.showNotification?.('Опрос успешно создан!');
+            Navigation?.switchTab?.('surveys');
+        }
+    },
+
+    viewSurvey(id) {
+        Utils?.showNotification?.(`Просмотр опроса #${id}`);
+        // TODO: реализовать детальный просмотр
     }
-  },
-
-  async createSurvey() {
-    const surveyData = {
-      name: document.getElementById('surveyName').value,
-      targetAudience: document.getElementById('surveyAudience').value,
-      metric: document.getElementById('surveyMetric').value,
-      triggers: this.selectedTriggers,
-      status: 'active',
-      responses: 0
-    };
-
-    if (!surveyData.name) {
-      Utils.showNotification('Введите название опроса', 'error');
-      return;
-    }
-
-    const result = await API.createSurvey(surveyData);
-    if (result.ok) {
-      Utils.showNotification('Опрос успешно создан!');
-      Navigation.switchTab('surveys');
-    }
-  },
-
-  viewSurvey(id) {
-    Utils.showNotification(`Просмотр опроса #${id}`);
-    // TODO: реализовать детальный просмотр
-  }
 };
+
+// Export for Jest
+if (typeof module !== 'undefined') {
+    module.exports = SurveyManager;
+}

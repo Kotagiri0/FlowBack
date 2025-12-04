@@ -1,66 +1,77 @@
 // Navigation
 const Navigation = {
-  init() {
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        const tabId = e.target.dataset.tab;
-        this.switchTab(tabId);
-      });
-    });
-  },
+    init() {
+        if (typeof document === 'undefined') return; // защита для Jest
 
-  switchTab(tabId) {
-    document.querySelectorAll('.content-section').forEach(section => {
-      section.classList.remove('active');
-    });
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const tabId = e.target.dataset.tab;
+                this.switchTab(tabId);
+            });
+        });
+    },
 
-    const targetSection = document.getElementById(tabId);
-    if (targetSection) {
-      targetSection.classList.add('active');
-    }
+    switchTab(tabId) {
+        if (typeof document === 'undefined') return;
 
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.classList.remove('active');
-    });
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
 
-    const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
-    if (activeTab) {
-      activeTab.classList.add('active');
-    }
+        const targetSection = document.getElementById(tabId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
 
-    State.currentTab = tabId;
-    this.loadTabContent(tabId);
-  },
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
 
-  async loadTabContent(tabId) {
-    switch (tabId) {
-    case 'dashboard':
-      await DashboardManager.render();
-      break;
-    case 'surveys':
-      await SurveyManager.render();
-      break;
-    case 'create':
-      await SurveyManager.renderCreateForm();
-      break;
-    case 'clients':
-      await ClientManager.render();
-      break;
-    case 'analytics':
-      await AnalyticsManager.render();
-      break;
-    case 'feedback':
-      await FeedbackManager.render();
-      break;
-    case 'settings':
-      this.renderSettings();
-      break;
-    }
-  },
+        const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
 
-  renderSettings() {
-    const settingsSection = document.getElementById('settings');
-    settingsSection.innerHTML = `
+        if (typeof State !== 'undefined') {
+            State.currentTab = tabId;
+        }
+
+        this.loadTabContent(tabId);
+    },
+
+    async loadTabContent(tabId) {
+        switch (tabId) {
+            case 'dashboard':
+                if (typeof DashboardManager !== 'undefined') await DashboardManager.render();
+                break;
+            case 'surveys':
+                if (typeof SurveyManager !== 'undefined') await SurveyManager.render();
+                break;
+            case 'create':
+                if (typeof SurveyManager !== 'undefined') await SurveyManager.renderCreateForm();
+                break;
+            case 'clients':
+                if (typeof ClientManager !== 'undefined') await ClientManager.render();
+                break;
+            case 'analytics':
+                if (typeof AnalyticsManager !== 'undefined') await AnalyticsManager.render();
+                break;
+            case 'feedback':
+                if (typeof FeedbackManager !== 'undefined') await FeedbackManager.render();
+                break;
+            case 'settings':
+                this.renderSettings();
+                break;
+        }
+    },
+
+    renderSettings() {
+        if (typeof document === 'undefined') return;
+
+        const settingsSection = document.getElementById('settings');
+        if (!settingsSection) return;
+
+        settingsSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Настройки системы</h2>
       
       <div class="form-group">
@@ -78,9 +89,14 @@ const Navigation = {
         <input type="number" value="45" min="1">
       </div>
 
-      <button class="btn btn-primary" onclick="Utils.showNotification('Настройки сохранены')">
+      <button class="btn btn-primary" onclick="Utils?.showNotification?.('Настройки сохранены')">
         Сохранить изменения
       </button>
     `;
-  }
+    }
 };
+
+// Для Jest
+if (typeof module !== 'undefined') {
+    module.exports = Navigation;
+}

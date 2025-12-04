@@ -1,10 +1,10 @@
 // Client Manager
 const ClientManager = {
-  async render() {
-    const clients = await API.getClients();
+    async render() {
+        const clients = await API.getClients();
 
-    const clientsSection = document.getElementById('clients');
-    clientsSection.innerHTML = `
+        const clientsSection = document.getElementById('clients');
+        clientsSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Управление клиентами</h2>
       <button class="btn btn-primary" style="margin-bottom: 20px;" onclick="ModalManager.open('addClient')">
         ➕ Добавить клиента
@@ -14,10 +14,10 @@ const ClientManager = {
         ${clients.map(client => this.renderClientCard(client)).join('')}
       </div>
     `;
-  },
+    },
 
-  renderClientCard(client) {
-    return `
+    renderClientCard(client) {
+        return `
       <div class="client-card">
         <div class="client-info">
           <h3>${client.company}</h3>
@@ -38,41 +38,43 @@ const ClientManager = {
         </div>
       </div>
     `;
-  },
+    },
 
-  async addClient() {
-    const clientData = {
-      company: document.getElementById('clientCompany').value,
-      contact: document.getElementById('clientContact').value,
-      email: document.getElementById('clientEmail').value,
-      roles: Array.from(document.getElementById('clientRoles').selectedOptions).map(o => o.value),
-      lastSurvey: new Date().toISOString()
-    };
+    async addClient() {
+        const clientData = {
+            company: document.getElementById('clientCompany').value,
+            contact: document.getElementById('clientContact').value,
+            email: document.getElementById('clientEmail').value,
+            roles: Array.from(document.getElementById('clientRoles').selectedOptions).map(o => o.value),
+            lastSurvey: new Date().toISOString()
+        };
 
-    if (!clientData.company || !clientData.contact || !clientData.email) {
-      Utils.showNotification('Заполните все обязательные поля', 'error');
-      return;
+        if (!clientData.company || !clientData.contact || !clientData.email) {
+            Utils.showNotification('Заполните все обязательные поля', 'error');
+            return;
+        }
+
+        if (!Utils.validateEmail(clientData.email)) {
+            Utils.showNotification('Некорректный email', 'error');
+            return;
+        }
+
+        if (clientData.roles.length === 0) {
+            Utils.showNotification('Выберите хотя бы одну роль', 'error');
+            return;
+        }
+
+        const result = await API.createClient(clientData);
+        if (result.ok) {
+            Utils.showNotification('Клиент успешно добавлен!');
+            ModalManager.close('addClient');
+            this.render();
+        }
+    },
+
+    editClient(id) {
+        Utils.showNotification(`Редактирование клиента #${id}`);
     }
-
-    if (!Utils.validateEmail(clientData.email)) {
-      Utils.showNotification('Некорректный email', 'error');
-      return;
-    }
-
-    if (clientData.roles.length === 0) {
-      Utils.showNotification('Выберите хотя бы одну роль', 'error');
-      return;
-    }
-
-    const result = await API.createClient(clientData);
-    if (result.ok) {
-      Utils.showNotification('Клиент успешно добавлен!');
-      ModalManager.close('addClient');
-      this.render();
-    }
-  },
-
-  editClient(id) {
-    Utils.showNotification(`Редактирование клиента #${id}`);
-  }
 };
+
+module.exports = ClientManager;

@@ -1,13 +1,13 @@
 // Dashboard Manager
 const DashboardManager = {
-  npsChart: null,
+    npsChart: null,
 
-  async render() {
-    const metrics = await API.getMetrics();
-    const analytics = await API.getAnalytics();
+    async render() {
+        const metrics = await API.getMetrics();
+        const analytics = await API.getAnalytics();
 
-    const dashboardSection = document.getElementById('dashboard');
-    dashboardSection.innerHTML = `
+        const dashboardSection = document.getElementById('dashboard');
+        dashboardSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Обзор метрик</h2>
       
       <div class="dashboard-grid">
@@ -47,64 +47,63 @@ const DashboardManager = {
       </div>
     `;
 
-    setTimeout(() => this.initNPSChart(metrics.nps.history), 100);
-  },
+        setTimeout(() => this.initNPSChart(metrics.nps.history), 100);
+    },
 
-  renderMetricCard(title, value, change, gradientClass) {
-    const gradients = {
-      'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      'tertiary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      'success-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-    };
+    renderMetricCard(title, value, change, gradientClass) {
+        const gradients = {
+            'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'tertiary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'success-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+        };
 
-    return `
+        return `
       <div class="metric-card" style="background: ${gradients[gradientClass]};">
         <h3>${title}</h3>
         <div class="metric-value">${value}</div>
         <div class="metric-change">${change.toString().includes('↑') || change.toString().includes('↓') ? change : '↑ ' + change}</div>
       </div>
     `;
-  },
+    },
 
-  initNPSChart(data) {
-    const canvas = document.getElementById('npsChart');
-    if (!canvas) {
-      return;
-    }
+    initNPSChart(data) {
+        const canvas = document.getElementById('npsChart');
+        if (!canvas) return;
 
-    if (this.npsChart) {
-      this.npsChart.destroy();
-    }
-
-    this.npsChart = new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь'],
-        datasets: [{
-          label: 'NPS',
-          data: data,
-          borderColor: CONFIG.CHART_COLORS.primary,
-          backgroundColor: 'rgba(102, 126, 234, 0.1)',
-          borderWidth: 3,
-          tension: 0.4,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        if (this.npsChart) {
+            this.npsChart.destroy();
         }
-      }
-    });
-  }
+
+        this.npsChart = new Chart(canvas, {
+            type: 'line',
+            data: {
+                labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь'],
+                datasets: [{
+                    label: 'NPS',
+                    data: data,
+                    borderColor: CONFIG.CHART_COLORS.primary,
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
 };
+
+// ✔ Экспорт для Jest
+if (typeof module !== 'undefined') {
+    module.exports = DashboardManager;
+}
