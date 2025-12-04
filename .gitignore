@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
-package-lock.json
+# НЕ игнорируем package-lock.json для GitHub Actions
+# package-lock.json
 yarn.lock
 
 # Testing
