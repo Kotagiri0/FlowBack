@@ -89,7 +89,9 @@ const AnalyticsManager = {
 
   initRoleChart() {
     const canvas = document.getElementById('roleChart');
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     if (this.roleChart) {
       this.roleChart.destroy();
@@ -98,7 +100,7 @@ const AnalyticsManager = {
     this.roleChart = new Chart(canvas, {
       type: 'doughnut',
       data: {
-        labels: ["ЛПР", "Техспецы", "Бизнес-юзеры"],
+        labels: ['ЛПР', 'Техспецы', 'Бизнес-юзеры'],
         datasets: [{
           data: [42, 28, 30],
           backgroundColor: [

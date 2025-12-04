@@ -12,10 +12,18 @@ const Utils = {
     const diffMs = now - past;
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return 'Сегодня';
-    if (diffDays === 1) return 'Вчера';
-    if (diffDays < 7) return `${diffDays} дней назад`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} недель назад`;
+    if (diffDays === 0) {
+      return 'Сегодня';
+    }
+    if (diffDays === 1) {
+      return 'Вчера';
+    }
+    if (diffDays < 7) {
+      return `${diffDays} дней назад`;
+    }
+    if (diffDays < 30) {
+      return `${Math.floor(diffDays / 7)} недель назад`;
+    }
     return `${Math.floor(diffDays / 30)} месяцев назад`;
   },
 
@@ -30,20 +38,28 @@ const Utils = {
 
   calculateNPS(promoters, passives, detractors) {
     const total = promoters + passives + detractors;
-    if (total === 0) return 0;
+    if (total === 0) {
+      return 0;
+    }
     return Math.round(((promoters - detractors) / total) * 100);
   },
 
   calculateCSAT(ratings) {
-    if (!ratings.length) return 0;
+    if (!ratings.length) {
+      return 0;
+    }
     const sum = ratings.reduce((a, b) => a + b, 0);
     return (sum / ratings.length).toFixed(1);
   },
 
   getSentiment(rating, maxRating = 10) {
     const percentage = (rating / maxRating) * 100;
-    if (percentage >= 70) return 'positive';
-    if (percentage >= 40) return 'neutral';
+    if (percentage >= 70) {
+      return 'positive';
+    }
+    if (percentage >= 40) {
+      return 'neutral';
+    }
     return 'negative';
   },
 
@@ -57,7 +73,9 @@ const Utils = {
   },
 
   convertToCSV(data) {
-    if (!data.length) return '';
+    if (!data.length) {
+      return '';
+    }
     const headers = Object.keys(data[0]).join(',');
     const rows = data.map(row => Object.values(row).join(','));
     return [headers, ...rows].join('\n');

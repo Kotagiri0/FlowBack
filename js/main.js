@@ -1,5 +1,5 @@
 // Main Application Initialization
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async() => {
   console.log('🔄 FlowBack v' + CONFIG.VERSION + ' загружается...');
 
   try {

@@ -69,7 +69,9 @@ const DashboardManager = {
 
   initNPSChart(data) {
     const canvas = document.getElementById('npsChart');
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     if (this.npsChart) {
       this.npsChart.destroy();
@@ -78,9 +80,9 @@ const DashboardManager = {
     this.npsChart = new Chart(canvas, {
       type: 'line',
       data: {
-        labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июнь"],
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь'],
         datasets: [{
-          label: "NPS",
+          label: 'NPS',
           data: data,
           borderColor: CONFIG.CHART_COLORS.primary,
           backgroundColor: 'rgba(102, 126, 234, 0.1)',

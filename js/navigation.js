@@ -33,28 +33,28 @@ const Navigation = {
   },
 
   async loadTabContent(tabId) {
-    switch(tabId) {
-      case 'dashboard':
-        await DashboardManager.render();
-        break;
-      case 'surveys':
-        await SurveyManager.render();
-        break;
-      case 'create':
-        await SurveyManager.renderCreateForm();
-        break;
-      case 'clients':
-        await ClientManager.render();
-        break;
-      case 'analytics':
-        await AnalyticsManager.render();
-        break;
-      case 'feedback':
-        await FeedbackManager.render();
-        break;
-      case 'settings':
-        this.renderSettings();
-        break;
+    switch (tabId) {
+    case 'dashboard':
+      await DashboardManager.render();
+      break;
+    case 'surveys':
+      await SurveyManager.render();
+      break;
+    case 'create':
+      await SurveyManager.renderCreateForm();
+      break;
+    case 'clients':
+      await ClientManager.render();
+      break;
+    case 'analytics':
+      await AnalyticsManager.render();
+      break;
+    case 'feedback':
+      await FeedbackManager.render();
+      break;
+    case 'settings':
+      this.renderSettings();
+      break;
     }
   },
 

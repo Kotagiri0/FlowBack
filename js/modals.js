@@ -49,7 +49,9 @@ const ModalManager = {
 
   resetForm(modalId) {
     const modal = document.getElementById(modalId);
-    if (!modal) return;
+    if (!modal) {
+      return;
+    }
 
     modal.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
       input.value = '';
