@@ -1,77 +1,97 @@
 // Navigation
 const Navigation = {
-    init() {
-        if (typeof document === 'undefined') return; // защита для Jest
+  init() {
+    if (typeof document === 'undefined') {
+      return;
+    } // защита для Jest
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                const tabId = e.target.dataset.tab;
-                this.switchTab(tabId);
-            });
-        });
-    },
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const tabId = e.target.dataset.tab;
+        this.switchTab(tabId);
+      });
+    });
+  },
 
-    switchTab(tabId) {
-        if (typeof document === 'undefined') return;
+  switchTab(tabId) {
+    if (typeof document === 'undefined') {
+      return;
+    }
 
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
-        });
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.classList.remove('active');
+    });
 
-        const targetSection = document.getElementById(tabId);
-        if (targetSection) {
-            targetSection.classList.add('active');
-        }
+    const targetSection = document.getElementById(tabId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.classList.remove('active');
-        });
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
 
-        const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
-        if (activeTab) {
-            activeTab.classList.add('active');
-        }
+    const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
+    if (activeTab) {
+      activeTab.classList.add('active');
+    }
 
-        if (typeof State !== 'undefined') {
-            State.currentTab = tabId;
-        }
+    if (typeof State !== 'undefined') {
+      State.currentTab = tabId;
+    }
 
-        this.loadTabContent(tabId);
-    },
+    this.loadTabContent(tabId);
+  },
 
-    async loadTabContent(tabId) {
-        switch (tabId) {
-            case 'dashboard':
-                if (typeof DashboardManager !== 'undefined') await DashboardManager.render();
-                break;
-            case 'surveys':
-                if (typeof SurveyManager !== 'undefined') await SurveyManager.render();
-                break;
-            case 'create':
-                if (typeof SurveyManager !== 'undefined') await SurveyManager.renderCreateForm();
-                break;
-            case 'clients':
-                if (typeof ClientManager !== 'undefined') await ClientManager.render();
-                break;
-            case 'analytics':
-                if (typeof AnalyticsManager !== 'undefined') await AnalyticsManager.render();
-                break;
-            case 'feedback':
-                if (typeof FeedbackManager !== 'undefined') await FeedbackManager.render();
-                break;
-            case 'settings':
-                this.renderSettings();
-                break;
-        }
-    },
+  async loadTabContent(tabId) {
+    switch (tabId) {
+    case 'dashboard':
+      if (typeof DashboardManager !== 'undefined') {
+        await DashboardManager.render();
+      }
+      break;
+    case 'surveys':
+      if (typeof SurveyManager !== 'undefined') {
+        await SurveyManager.render();
+      }
+      break;
+    case 'create':
+      if (typeof SurveyManager !== 'undefined') {
+        await SurveyManager.renderCreateForm();
+      }
+      break;
+    case 'clients':
+      if (typeof ClientManager !== 'undefined') {
+        await ClientManager.render();
+      }
+      break;
+    case 'analytics':
+      if (typeof AnalyticsManager !== 'undefined') {
+        await AnalyticsManager.render();
+      }
+      break;
+    case 'feedback':
+      if (typeof FeedbackManager !== 'undefined') {
+        await FeedbackManager.render();
+      }
+      break;
+    case 'settings':
+      this.renderSettings();
+      break;
+    }
+  },
 
-    renderSettings() {
-        if (typeof document === 'undefined') return;
+  renderSettings() {
+    if (typeof document === 'undefined') {
+      return;
+    }
 
-        const settingsSection = document.getElementById('settings');
-        if (!settingsSection) return;
+    const settingsSection = document.getElementById('settings');
+    if (!settingsSection) {
+      return;
+    }
 
-        settingsSection.innerHTML = `
+    settingsSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Настройки системы</h2>
       
       <div class="form-group">
@@ -93,10 +113,10 @@ const Navigation = {
         Сохранить изменения
       </button>
     `;
-    }
+  }
 };
 
 // Для Jest
 if (typeof module !== 'undefined') {
-    module.exports = Navigation;
+  module.exports = Navigation;
 }
