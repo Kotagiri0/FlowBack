@@ -7,47 +7,43 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  # Job 1: Lint и валидация кода
+  # -------------------------------
+  # 1. LINT
+  # -------------------------------
   lint:
     name: Lint Code
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
+      - run: npm run lint
 
-      - name: Run ESLint
-        run: npm run lint
-
-  # Job 2: Валидация JSON файлов
+  # -------------------------------
+  # 2. Validate JSON
+  # -------------------------------
   validate-json:
     name: Validate JSON Files
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
+      - run: npm run validate:json
 
-      - name: Validate JSON structure
-        run: npm run validate:json
-
-  # Job 3: Запуск тестов
+  # -------------------------------
+  # 3. TESTS
+  # -------------------------------
   test:
     name: Run Tests
     runs-on: ubuntu-latest
@@ -58,64 +54,52 @@ jobs:
         node-version: [16, 18, 20]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run unit tests
-        run: npm test
-
-      - name: Generate coverage report
-        run: npm run test:coverage
+      - run: npm install
+      - run: npm test
+      - run: npm run test:coverage
 
       - name: Upload coverage to Codecov
         if: matrix.node-version == '18'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
 
-  # Job 4: Build (если есть шаг сборки)
+  # -------------------------------
+  # 4. BUILD
+  # -------------------------------
   build:
     name: Build Application
     runs-on: ubuntu-latest
     needs: test
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build application
-        run: npm run build
+      - run: npm install
+      - run: npm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-files
-          path: |
-            index.html
-            css/
-            js/
-            data/
+          path: ./dist
           retention-days: 7
 
-  # Job 5: Deploy на GitHub Pages (только master ветка)
+  # -------------------------------
+  # 5. DEPLOY to GitHub Pages
+  # -------------------------------
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
@@ -132,22 +116,27 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: dist
+
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'
+          path: dist
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
 
-  # Job 6: Уведомления об успехе/провале
+  # -------------------------------
+  # 6. NOTIFICATIONS
+  # -------------------------------
   notify:
     name: Send Notifications
     runs-on: ubuntu-latest
