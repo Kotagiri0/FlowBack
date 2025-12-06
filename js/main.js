@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Инициализация компонентов
-        ThemeManager.init();      // Инициализация темы (новое!)
+        ThemeManager.init();      // Инициализация темы
+        AvatarManager.init();     // Инициализация аватарки (новое!)
         Navigation.init();
         ModalManager.init();
 

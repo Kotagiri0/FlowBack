@@ -1,0 +1,181 @@
+/* Avatar Component */
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Placeholder если нет изображения */
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.avatar-placeholder:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Статус онлайн */
+.avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--success);
+    border: 2px solid var(--theme-bg-secondary);
+}
+
+.avatar-status.offline {
+    background: var(--gray-400);
+}
+
+/* Dropdown меню аватара */
+.avatar-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: var(--theme-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    padding: 10px 0;
+    min-width: 200px;
+    display: none;
+    z-index: 1000;
+    border: 1px solid var(--theme-border);
+}
+
+.avatar-dropdown.active {
+    display: block;
+    animation: fadeIn 0.2s;
+}
+
+.avatar-dropdown-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--theme-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-dropdown-item:hover {
+    background: var(--theme-hover);
+}
+
+.avatar-dropdown-divider {
+    height: 1px;
+    background: var(--theme-border);
+    margin: 5px 0;
+}
+
+/* Avatar upload */
+.avatar-upload {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.avatar-upload input[type="file"] {
+    display: none;
+}
+
+.avatar-upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.avatar-upload:hover .avatar-upload-overlay {
+    display: flex;
+}
+
+/* Темная тема */
+[data-theme="dark"] .avatar {
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .avatar-dropdown {
+    background: var(--theme-bg-card);
+    border-color: var(--theme-border);
+}
+
+[data-theme="dark"] .avatar-dropdown-item {
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .avatar-dropdown-item:hover {
+    background: var(--theme-bg-hover);
+}
+
+[data-theme="dark"] .avatar-status {
+    border-color: var(--theme-bg-secondary);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .avatar-placeholder {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
