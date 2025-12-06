@@ -1,0 +1,322 @@
+/* Theme Styles */
+
+/* Light Theme (по умолчанию) */
+:root {
+    --theme-bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --theme-bg-secondary: #ffffff;
+    --theme-bg-tertiary: #f9f9f9;
+    --theme-text-primary: #333333;
+    --theme-text-secondary: #666666;
+    --theme-border: #e0e0e0;
+    --theme-shadow: rgba(0, 0, 0, 0.1);
+    --theme-hover: #f0f0f0;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    /* Основные цвета из вашей палитры */
+    --primary-color: #09a773; /* 9, 167, 115 - бирюзовый акцент */
+    --secondary-color: #1a2732; /* 26, 39, 50 - темно-синий */
+
+    /* Дополнительные цвета (подобраны для гармонии) */
+    --accent-teal: #0bc98b; /* Светлее основного, для hover */
+    --accent-purple: #6c5ce7; /* Фиолетовый акцент */
+    --accent-blue: #4a90e2; /* Голубой для ссылок */
+
+    /* Градиенты */
+    --theme-bg-primary: linear-gradient(135deg, #09a773 0%, #0bc98b 100%);
+    --primary-gradient: linear-gradient(135deg, #09a773 0%, #0bc98b 100%);
+    --secondary-gradient: linear-gradient(135deg, #6c5ce7 0%, #4a90e2 100%);
+    --tertiary-gradient: linear-gradient(135deg, #4a90e2 0%, #09a773 100%);
+    --success-gradient: linear-gradient(135deg, #09a773 0%, #00d68f 100%);
+
+    /* Фоны */
+    --theme-bg-secondary: #1a2732; /* Основной фон */
+    --theme-bg-tertiary: #243340; /* Вторичный фон (светлее) */
+    --theme-bg-card: #2c3e50; /* Фон карточек */
+    --theme-bg-hover: #34495e; /* Hover состояние */
+
+    /* Текст */
+    --theme-text-primary: #ecf0f1; /* Основной текст */
+    --theme-text-secondary: #95a5a6; /* Второстепенный текст */
+    --theme-text-accent: #09a773; /* Акцентный текст */
+
+    /* Границы */
+    --theme-border: #34495e;
+    --theme-border-light: #3d566e;
+
+    /* Тени */
+    --theme-shadow: rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* Цвета для состояний */
+    --success: #00d68f;
+    --warning: #ffb822;
+    --error: #e74c3c;
+
+    /* Оттенки серого */
+    --gray-50: #2c3e50;
+    --gray-100: #34495e;
+    --gray-200: #3d566e;
+    --gray-400: #7f8c8d;
+    --gray-600: #95a5a6;
+    --gray-800: #ecf0f1;
+
+    --white: #1a2732;
+    --bg-gradient: linear-gradient(135deg, #1a2732 0%, #243340 100%);
+}
+
+/* Применение темной темы к элементам */
+[data-theme="dark"] body {
+    background: var(--bg-gradient);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] header {
+    background: rgba(26, 39, 50, 0.95);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .nav-tabs {
+    background: var(--theme-bg-tertiary);
+}
+
+[data-theme="dark"] .tab {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .tab:hover {
+    background: var(--theme-bg-hover);
+}
+
+[data-theme="dark"] .content-section {
+    background: var(--theme-bg-secondary);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .metric-card {
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .survey-item,
+[data-theme="dark"] .client-card,
+[data-theme="dark"] .feedback-item,
+[data-theme="dark"] .stat-box,
+[data-theme="dark"] .chart-container {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+    border-color: var(--theme-border);
+}
+
+[data-theme="dark"] .survey-item:hover,
+[data-theme="dark"] .client-card:hover {
+    background: var(--theme-bg-hover);
+}
+
+[data-theme="dark"] .survey-info h3,
+[data-theme="dark"] .client-info h3,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+    color: var(--theme-text-accent);
+}
+
+[data-theme="dark"] .survey-meta,
+[data-theme="dark"] p {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea {
+    background: var(--theme-bg-card);
+    border-color: var(--theme-border);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group select:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .trigger-item {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .trigger-item.selected {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+[data-theme="dark"] .question-builder {
+    background: var(--theme-bg-card);
+}
+
+[data-theme="dark"] .question-item {
+    background: var(--theme-bg-tertiary);
+    border-left-color: var(--primary-color);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .modal {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .modal-content {
+    background: var(--theme-bg-secondary);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--theme-bg-hover);
+}
+
+[data-theme="dark"] .progress-bar {
+    background: var(--theme-bg-card);
+}
+
+[data-theme="dark"] .badge {
+    background: var(--secondary-gradient);
+}
+
+/* Переключатель темы */
+.theme-switcher {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: var(--gray-200);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    padding: 3px;
+}
+
+.theme-switcher::before {
+    content: '☀️';
+    position: absolute;
+    left: 5px;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.theme-switcher::after {
+    content: '🌙';
+    position: absolute;
+    right: 5px;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.theme-toggle {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: var(--transition);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    left: 3px;
+}
+
+[data-theme="dark"] .theme-switcher {
+    background: var(--theme-bg-card);
+}
+
+[data-theme="dark"] .theme-toggle {
+    left: 33px;
+    background: var(--primary-color);
+}
+
+/* Дополнительные улучшения для темной темы */
+[data-theme="dark"] .rating-btn {
+    background: var(--theme-bg-card);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .rating-btn:hover,
+[data-theme="dark"] .rating-btn.selected {
+    background: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .close-modal {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] .close-modal:hover {
+    color: var(--theme-text-primary);
+}
+
+/* Улучшение читаемости в темной теме */
+[data-theme="dark"] .feedback-item,
+[data-theme="dark"] .question-item {
+    border-left-color: var(--primary-color);
+}
+
+[data-theme="dark"] .stat-box .value {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] label {
+    color: var(--theme-text-primary);
+}
+
+/* Placeholder для темной темы */
+[data-theme="dark"] ::placeholder {
+    color: var(--theme-text-secondary);
+    opacity: 0.6;
+}
+
+/* Исправление для секции NLP топиков */
+[data-theme="dark"] .feedback-item {
+    background: var(--theme-bg-card);
+    color: var(--theme-text-primary);
+    border-left-color: var(--primary-color);
+}
+
+[data-theme="dark"] .feedback-item strong {
+    color: var(--theme-text-primary);
+}
+
+[data-theme="dark"] .feedback-item p {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] .feedback-header strong {
+    color: var(--theme-text-primary);
+}
+
+/* Дополнительная секция с фоном */
+[data-theme="dark"] div[style*="background: #f9f9f9"] {
+    background: var(--theme-bg-card) !important;
+}
+
+[data-theme="dark"] div[style*="background: white"] {
+    background: var(--theme-bg-tertiary) !important;
+}
+
+/* NLP Topics секция */
+[data-theme="dark"] .nlp-topics-section {
+    background: var(--theme-bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+[data-theme="dark"] .nlp-topics-section h3 {
+    color: var(--theme-text-primary);
+    margin-bottom: 15px;
+}

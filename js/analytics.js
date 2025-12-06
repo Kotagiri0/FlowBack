@@ -1,12 +1,12 @@
 // Analytics Manager
 const AnalyticsManager = {
-  roleChart: null,
+    roleChart: null,
 
-  async render() {
-    const analytics = await API.getAnalytics();
+    async render() {
+        const analytics = await API.getAnalytics();
 
-    const analyticsSection = document.getElementById('analytics');
-    analyticsSection.innerHTML = `
+        const analyticsSection = document.getElementById('analytics');
+        analyticsSection.innerHTML = `
       <h2 style="margin-bottom: 20px;">Детальная аналитика</h2>
 
       <div class="export-options">
@@ -42,29 +42,29 @@ const AnalyticsManager = {
         </div>
       </div>
 
-      <div style="margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 10px;">
+      <div class="nlp-topics-section">
         <h3 style="margin-bottom: 15px;">Топ-3 темы из фидбека (NLP)</h3>
         ${analytics.topTopics.map(topic => this.renderTopicItem(topic)).join('')}
       </div>
     `;
 
-    setTimeout(() => this.initRoleChart(), 100);
-  },
+        setTimeout(() => this.initRoleChart(), 100);
+    },
 
-  renderTopicItem(topic) {
-    const trendIcons = {
-      up: '↑',
-      down: '↓',
-      stable: '→'
-    };
+    renderTopicItem(topic) {
+        const trendIcons = {
+            up: '↑',
+            down: '↓',
+            stable: '→'
+        };
 
-    const trendTexts = {
-      up: 'улучшение',
-      down: 'ухудшение',
-      stable: 'стабильно'
-    };
+        const trendTexts = {
+            up: 'улучшение',
+            down: 'ухудшение',
+            stable: 'стабильно'
+        };
 
-    return `
+        return `
       <div class="feedback-item">
         <div class="feedback-header">
           <strong>${topic.topic}</strong>
@@ -76,62 +76,62 @@ const AnalyticsManager = {
         </p>
       </div>
     `;
-  },
+    },
 
-  getSentimentText(sentiment) {
-    const texts = {
-      positive: 'Позитивная',
-      neutral: 'Нейтральная',
-      negative: 'Негативная'
-    };
-    return texts[sentiment] || sentiment;
-  },
+    getSentimentText(sentiment) {
+        const texts = {
+            positive: 'Позитивная',
+            neutral: 'Нейтральная',
+            negative: 'Негативная'
+        };
+        return texts[sentiment] || sentiment;
+    },
 
-  initRoleChart() {
-    const canvas = document.getElementById('roleChart');
-    if (!canvas) return;
+    initRoleChart() {
+        const canvas = document.getElementById('roleChart');
+        if (!canvas) return;
 
-    if (this.roleChart) {
-      this.roleChart.destroy();
-    }
-
-    this.roleChart = new Chart(canvas, {
-      type: 'doughnut',
-      data: {
-        labels: ["ЛПР", "Техспецы", "Бизнес-юзеры"],
-        datasets: [{
-          data: [42, 28, 30],
-          backgroundColor: [
-            CONFIG.CHART_COLORS.primary,
-            CONFIG.CHART_COLORS.tertiary,
-            CONFIG.CHART_COLORS.success
-          ],
-          borderWidth: 2,
-          borderColor: '#fff'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
+        if (this.roleChart) {
+            this.roleChart.destroy();
         }
-      }
-    });
-  },
 
-  async exportData(format) {
-    const clients = await API.getClients();
-    const surveys = await API.getSurveys();
-    const feedback = await API.getFeedback();
+        this.roleChart = new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: ["ЛПР", "Техспецы", "Бизнес-юзеры"],
+                datasets: [{
+                    data: [42, 28, 30],
+                    backgroundColor: [
+                        CONFIG.CHART_COLORS.primary,
+                        CONFIG.CHART_COLORS.tertiary,
+                        CONFIG.CHART_COLORS.success
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    },
 
-    if (format === 'csv') {
-      Utils.exportToCSV(clients, `flowback_clients_${Date.now()}.csv`);
-      Utils.showNotification('Данные экспортированы в CSV');
-    } else if (format === 'xlsx') {
-      Utils.showNotification('Экспорт в XLSX (функция в разработке)');
+    async exportData(format) {
+        const clients = await API.getClients();
+        const surveys = await API.getSurveys();
+        const feedback = await API.getFeedback();
+
+        if (format === 'csv') {
+            Utils.exportToCSV(clients, `flowback_clients_${Date.now()}.csv`);
+            Utils.showNotification('Данные экспортированы в CSV');
+        } else if (format === 'xlsx') {
+            Utils.showNotification('Экспорт в XLSX (функция в разработке)');
+        }
     }
-  }
 };
