@@ -1,0 +1,458 @@
+/* surveyTaking.css - Стили для прохождения опросов */
+
+/* Модальное окно опроса */
+.survey-modal-content {
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Информация об опросе */
+.survey-info {
+    background: var(--surface-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.survey-info p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+}
+
+.survey-info strong {
+    color: var(--primary-color);
+}
+
+/* Контейнер вопросов */
+.survey-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Блок вопроса */
+.question-block {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.question-block:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок вопроса */
+.question-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.question-number {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.question-text {
+    flex: 1;
+    font-size: 1.05rem;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.required-mark {
+    color: var(--danger-color);
+    font-size: 1.2rem;
+    margin-left: 0.25rem;
+}
+
+/* Поле ввода вопроса */
+.question-input {
+    margin-top: 1rem;
+}
+
+/* Текстовое поле */
+.question-input textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.question-input textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Шкала рейтинга */
+.rating-scale {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.rating-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.rating-option input[type="radio"] {
+    display: none;
+}
+
+.rating-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    background: var(--surface-color);
+    color: var(--text-color);
+}
+
+.rating-option:hover span {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.rating-option input[type="radio"]:checked + span {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Варианты выбора */
+.choice-option {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--surface-color);
+}
+
+.choice-option:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.choice-option input[type="radio"],
+.choice-option input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.choice-option span {
+    flex: 1;
+    color: var(--text-color);
+}
+
+.choice-option input:checked + span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* NPS шкала */
+.nps-scale {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.nps-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+    min-width: 40px;
+}
+
+.nps-option input[type="radio"] {
+    display: none;
+}
+
+.nps-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background: var(--surface-color);
+    color: var(--text-color);
+}
+
+.nps-option.detractor span {
+    border-color: #e74c3c;
+}
+
+.nps-option.passive span {
+    border-color: #f39c12;
+}
+
+.nps-option.promoter span {
+    border-color: #27ae60;
+}
+
+.nps-option:hover span {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nps-option input[type="radio"]:checked + span {
+    transform: scale(1.05);
+    font-size: 1.1rem;
+}
+
+.nps-option.detractor input[type="radio"]:checked + span {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+.nps-option.passive input[type="radio"]:checked + span {
+    background: #f39c12;
+    color: white;
+    border-color: #f39c12;
+}
+
+.nps-option.promoter input[type="radio"]:checked + span {
+    background: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+
+.nps-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+/* CSAT шкала */
+.csat-scale {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.csat-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+    min-width: 80px;
+}
+
+.csat-option input[type="radio"] {
+    display: none;
+}
+
+.csat-option span:first-of-type {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+    transition: transform 0.3s ease;
+}
+
+.csat-option small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.csat-option:hover span:first-of-type {
+    transform: scale(1.2);
+}
+
+.csat-option input[type="radio"]:checked ~ span:first-of-type {
+    transform: scale(1.3);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Действия модального окна */
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Список доступных опросов */
+.available-surveys-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.survey-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.survey-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.survey-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.survey-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.survey-card-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.survey-card-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.survey-card-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.survey-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .survey-modal-content {
+        max-width: 95%;
+        padding: 1rem;
+    }
+
+    .rating-scale,
+    .nps-scale,
+    .csat-scale {
+        justify-content: center;
+    }
+
+    .nps-option {
+        min-width: 35px;
+    }
+
+    .nps-option span {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+
+    .question-block {
+        padding: 1rem;
+    }
+
+    .available-surveys-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Прогресс прохождения опроса */
+.survey-progress {
+    margin-bottom: 1.5rem;
+}
+
+.survey-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.survey-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+    transition: width 0.3s ease;
+}
+
+.survey-progress-text {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Анимация появления вопросов */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-block {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.question-block:nth-child(1) { animation-delay: 0.1s; }
+.question-block:nth-child(2) { animation-delay: 0.2s; }
+.question-block:nth-child(3) { animation-delay: 0.3s; }
+.question-block:nth-child(4) { animation-delay: 0.4s; }
+.question-block:nth-child(5) { animation-delay: 0.5s; }

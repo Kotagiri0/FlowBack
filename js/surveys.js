@@ -1,168 +1,309 @@
-// Survey Manager
+// ===============================
+// Survey Manager (объединённый)
+// ===============================
 const SurveyManager = {
-  selectedTriggers: [],
+    selectedTriggers: [],
 
-  async render() {
-    const surveys = await API.getSurveys();
+    //
+    // ----------------------------------------------------
+    // 1. ОСНОВНОЙ РЕНДЕР: список опросов
+    // ----------------------------------------------------
+    //
+    async render() {
+        const container = document.getElementById('surveys');
+        if (!container) return;
 
-    const surveysSection = document.getElementById('surveys');
-    surveysSection.innerHTML = `
-      <h2 style="margin-bottom: 20px;">Управление опросами</h2>
-      <div class="survey-list">
-        ${surveys.map(survey => this.renderSurveyItem(survey)).join('')}
-      </div>
-    `;
-  },
+        const surveys = State.getSurveys() || [];
 
-  renderSurveyItem(survey) {
-    const statusEmoji = survey.status === 'active' ? '✅' : '⏸️';
-    const statusText = survey.status === 'active' ? 'Активен' : 'Приостановлен';
+        if (surveys.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>📝 Нет опросов</h3>
+                    <p>Создайте первый опрос</p>
+                </div>
+            `;
+            return;
+        }
 
-    return `
-      <div class="survey-item">
-        <div class="survey-info">
-          <h3>${survey.name}</h3>
-          <div class="survey-meta">
-            <span>🎯 ${survey.targetAudience}</span> •
-            <span>📊 ${survey.metrics.join(' + ')}</span> •
-            <span>${statusEmoji} ${statusText}</span> •
-            <span>${survey.responses} ответов</span>
-          </div>
-        </div>
-        <div>
-          <button class="btn ${survey.status === 'active' ? 'btn-primary' : 'btn-secondary'}" 
-                  onclick="SurveyManager.viewSurvey(${survey.id})">
-            ${survey.status === 'active' ? 'Просмотр' : 'Редактировать'}
-          </button>
-        </div>
-      </div>
-    `;
-  },
+        let html = `
+            <div class="section-header">
+                <h2>Список опросов</h2>
+                <button class="btn btn-primary" onclick="Navigation.switchTab('create')">
+                    ➕ Создать новый
+                </button>
+            </div>
 
-  async renderCreateForm() {
-    const createSection = document.getElementById('create');
-    createSection.innerHTML = `
-      <h2 style="margin-bottom: 20px;">Создать новый опрос</h2>
+            <div class="surveys-grid">
+        `;
 
-      <div class="form-group">
-        <label>Название опроса</label>
-        <input type="text" id="surveyName" placeholder="Например: Оценка качества поддержки">
-      </div>
+        surveys.forEach(survey => {
+            html += `
+                <div class="survey-card">
+                    <div class="survey-card-header">
+                        <h3>${survey.name}</h3>
+                        <span class="badge badge-${survey.status === 'active' ? 'success' : 'secondary'}">
+                            ${survey.status === 'active' ? 'Активен' : 'Пауза'}
+                        </span>
+                    </div>
 
-      <div class="form-group">
-        <label>Целевая аудитория</label>
-        <select id="surveyAudience">
-          <option>ЛПР (Лица, принимающие решения)</option>
-          <option>Технические специалисты</option>
-          <option>Бизнес-пользователи</option>
-          <option>Все роли</option>
-        </select>
-      </div>
+                    <div class="survey-card-meta">
+                        <span>🎯 ${survey.targetAudience}</span>
+                        <span>📊 ${survey.metrics?.join(', ') || "—"}</span>
+                        <span>💬 ${survey.responses || 0} ответов</span>
+                    </div>
 
-      <div class="form-group">
-        <label>Триггер отправки</label>
-        <div class="trigger-config">
-          <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_demo')">
-            <strong>📅 После демо</strong>
-            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Через 24 часа</p>
-          </div>
-          <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_release')">
-            <strong>🚀 После релиза</strong>
-            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Через 48 часов</p>
-          </div>
-          <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_incident')">
-            <strong>⚠️ После инцидента</strong>
-            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">Через 72 часа</p>
-          </div>
-          <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_sprint')">
-            <strong>📊 После спринта</strong>
-            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">По завершении</p>
-          </div>
-        </div>
-      </div>
+                    <div class="survey-card-actions">
+                        <button class="btn btn-sm btn-primary" onclick="SurveyManager.viewSurvey(${survey.id})">
+                            Открыть
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="SurveyManager.editSurvey(${survey.id})">
+                            ✏️ Изменить
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="SurveyManager.deleteSurvey(${survey.id})">
+                            🗑 Удалить
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
 
-      <div class="form-group">
-        <label>Тип метрики</label>
-        <select id="surveyMetric">
-          <option>NPS (Net Promoter Score)</option>
-          <option>CSAT (Customer Satisfaction)</option>
-          <option>CES (Customer Effort Score)</option>
-          <option>Кастомный опрос</option>
-        </select>
-      </div>
+        container.innerHTML = html + "</div>";
+    },
 
-      <div class="question-builder">
-        <h3 style="margin-bottom: 15px;">Вопросы опроса</h3>
-        <div class="question-item">
-          <strong>1. Оцените вероятность рекомендации (0-10)</strong>
-          <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Тип: NPS шкала</p>
-        </div>
-        <div class="question-item">
-          <strong>2. Что можно улучшить?</strong>
-          <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Тип: Текстовый ответ</p>
-        </div>
-        <button class="btn btn-secondary" style="margin-top: 10px;">➕ Добавить вопрос</button>
-      </div>
+    //
+    // ----------------------------------------------------
+    // 2. РЕНДЕРИНГ ФОРМЫ СОЗДАНИЯ ОПРОСА
+    // ----------------------------------------------------
+    //
+    async renderCreateForm() {
+        const createSection = document.getElementById('create');
+        createSection.innerHTML = `
+            <h2 style="margin-bottom: 20px;">Создать новый опрос</h2>
 
-      <div class="form-group">
-        <label>Канал отправки</label>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <label style="display: flex; align-items: center; gap: 5px;">
-            <input type="checkbox" checked> Email
-          </label>
-          <label style="display: flex; align-items: center; gap: 5px;">
-            <input type="checkbox" checked> Telegram бот
-          </label>
-          <label style="display: flex; align-items: center; gap: 5px;">
-            <input type="checkbox"> VK Teams
-          </label>
-          <label style="display: flex; align-items: center; gap: 5px;">
-            <input type="checkbox"> Веб-форма
-          </label>
-        </div>
-      </div>
+            <div class="form-group">
+                <label>Название опроса</label>
+                <input type="text" id="surveyName" placeholder="Например: Оценка качества поддержки">
+            </div>
 
-      <button class="btn btn-primary" onclick="SurveyManager.createSurvey()">
-        Создать опрос
-      </button>
-    `;
-  },
+            <div class="form-group">
+                <label>Целевая аудитория</label>
+                <select id="surveyAudience">
+                    <option>ЛПР (Лица, принимающие решения)</option>
+                    <option>Технические специалисты</option>
+                    <option>Бизнес-пользователи</option>
+                    <option>Все роли</option>
+                </select>
+            </div>
 
-  toggleTrigger(element, triggerId) {
-    element.classList.toggle('selected');
+            <div class="form-group">
+                <label>Триггер отправки</label>
+                <div class="trigger-config">
+                    <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_demo')">
+                        <strong>📅 После демо</strong>
+                        <p>Через 24 часа</p>
+                    </div>
+                    <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_release')">
+                        <strong>🚀 После релиза</strong>
+                        <p>Через 48 часов</p>
+                    </div>
+                    <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_incident')">
+                        <strong>⚠️ После инцидента</strong>
+                        <p>Через 72 часа</p>
+                    </div>
+                    <div class="trigger-item" onclick="SurveyManager.toggleTrigger(this, 'after_sprint')">
+                        <strong>📊 После спринта</strong>
+                        <p>По завершении</p>
+                    </div>
+                </div>
+            </div>
 
-    const index = this.selectedTriggers.indexOf(triggerId);
-    if (index > -1) {
-      this.selectedTriggers.splice(index, 1);
-    } else {
-      this.selectedTriggers.push(triggerId);
+            <div class="form-group">
+                <label>Тип метрики</label>
+                <select id="surveyMetric">
+                    <option>NPS</option>
+                    <option>CSAT</option>
+                    <option>CES</option>
+                    <option>Кастомный опрос</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" onclick="SurveyManager.createSurvey()">Создать</button>
+        `;
+    },
+
+    toggleTrigger(element, id) {
+        element.classList.toggle('selected');
+
+        const pos = this.selectedTriggers.indexOf(id);
+        if (pos > -1) this.selectedTriggers.splice(pos, 1);
+        else this.selectedTriggers.push(id);
+    },
+
+    //
+    // ----------------------------------------------------
+    // 3. СОЗДАНИЕ ОПРОСА
+    // ----------------------------------------------------
+    //
+    async createSurvey() {
+        const name = document.getElementById('surveyName').value.trim();
+
+        if (!name) {
+            Utils.showNotification("Введите название опроса", "error");
+            return;
+        }
+
+        const surveyData = {
+            id: Date.now(),
+            name,
+            targetAudience: document.getElementById('surveyAudience').value,
+            metrics: [document.getElementById('surveyMetric').value],
+            triggers: this.selectedTriggers,
+            status: "active",
+            responses: 0
+        };
+
+        const result = await API.createSurvey(surveyData);
+        if (result.ok) {
+            State.surveys.push(surveyData);
+            Utils.showNotification("Опрос успешно создан");
+            Navigation.switchTab("surveys");
+        }
+    },
+
+    //
+    // ----------------------------------------------------
+    // 4. ПРОСМОТР ОПРОСА / РЕДАКТИРОВАНИЕ
+    // ----------------------------------------------------
+    //
+    viewSurvey(id) {
+        Utils.showNotification("Функция просмотра будет подключена позже");
+    },
+
+    editSurvey(id) {
+        Utils.showNotification("Редактор опросов будет добавлен позже");
+    },
+
+    deleteSurvey(id) {
+        if (!confirm("Удалить опрос?")) return;
+
+        State.surveys = State.surveys.filter(s => s.id !== id);
+        this.render();
+    },
+
+    //
+    // ----------------------------------------------------
+    // 5. ПРОХОЖДЕНИЕ ОПРОСА
+    // ----------------------------------------------------
+    //
+    openSurveyForTaking(surveyId) {
+        this.showRespondentSelector(surveyId);
+    },
+
+    showRespondentSelector(surveyId) {
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = "flex";
+        modal.id = "respondentSelectorModal";
+
+        const clients = State.getClients();
+
+        let options = clients
+            .map(c => `<option value="${c.email}" data-name="${c.contact}">${c.contact} (${c.company})</option>`)
+            .join("");
+
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Выберите респондента</h3>
+                    <button class="close-modal" onclick="this.closest('.modal').remove()">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <select id="respondentSelect">
+                        <option value="">— Выберите —</option>
+                        ${options}
+                    </select>
+
+                    <input id="respondentName" placeholder="Имя">
+                    <input id="respondentEmail" placeholder="Email">
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="this.closest('.modal').remove()">Отмена</button>
+                    <button class="btn btn-primary" onclick="SurveyManager.startSurvey('${surveyId}')">Начать</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        document.getElementById("respondentSelect").addEventListener("change", function () {
+            const opt = this.selectedOptions[0];
+            if (!opt.value) return;
+            document.getElementById("respondentName").value = opt.dataset.name;
+            document.getElementById("respondentEmail").value = opt.value;
+        });
+    },
+
+    startSurvey(surveyId) {
+        const name = document.getElementById("respondentName").value.trim();
+        const email = document.getElementById("respondentEmail").value.trim();
+
+        if (!name || !email) {
+            Utils.showNotification("Введите имя и email", "error");
+            return;
+        }
+
+        if (!Utils.validateEmail(email)) {
+            Utils.showNotification("Некорректный email", "error");
+            return;
+        }
+
+        document.getElementById("respondentSelectorModal")?.remove();
+
+        SurveyTaking.openSurvey(surveyId, { name, email, role: "User" });
+    },
+
+    //
+    // ----------------------------------------------------
+    // 6. РЕЗУЛЬТАТЫ ОПРОСОВ
+    // ----------------------------------------------------
+    //
+    viewResults(surveyId) {
+        const responses = SurveyTaking.getSurveyResults(surveyId);
+        const survey = State.getSurveys().find(s => s.id == surveyId);
+
+        if (!survey) return;
+
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.style.display = "flex";
+
+        let html = responses.length
+            ? responses.map(r => `
+                <div class="response-item">
+                    <strong>${r.respondentName}</strong>
+                    <small>${Utils.formatDate(r.completedAt)}</small>
+                </div>
+            `).join("")
+            : "<p>Нет ответов</p>";
+
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Результаты — ${survey.name}</h3>
+                    <button class="close-modal" onclick="this.closest('.modal').remove()">×</button>
+                </div>
+                <div class="modal-body">
+                    ${html}
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="this.closest('.modal').remove()">Закрыть</button>
+                    <button class="btn btn-primary" onclick="SurveyTaking.exportResults('${surveyId}')">Экспорт</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
     }
-  },
-
-  async createSurvey() {
-    const surveyData = {
-      name: document.getElementById('surveyName').value,
-      targetAudience: document.getElementById('surveyAudience').value,
-      metric: document.getElementById('surveyMetric').value,
-      triggers: this.selectedTriggers,
-      status: 'active',
-      responses: 0
-    };
-
-    if (!surveyData.name) {
-      Utils.showNotification('Введите название опроса', 'error');
-      return;
-    }
-
-    const result = await API.createSurvey(surveyData);
-    if (result.ok) {
-      Utils.showNotification('Опрос успешно создан!');
-      Navigation.switchTab('surveys');
-    }
-  },
-
-  viewSurvey(id) {
-    Utils.showNotification(`Просмотр опроса #${id}`);
-    // TODO: реализовать детальный просмотр
-  }
 };
