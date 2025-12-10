@@ -1,4 +1,4 @@
-// Analytics Manager
+// Analytics Manager with Excel Export Button
 const AnalyticsManager = {
     roleChart: null,
 
@@ -15,6 +15,9 @@ const AnalyticsManager = {
         </button>
         <button class="btn btn-secondary" onclick="AnalyticsManager.exportData('xlsx')">
           📈 Экспорт XLSX
+        </button>
+        <button class="btn btn-primary" onclick="ExcelExport.exportClientData()">
+          📊 Экспорт Excel
         </button>
       </div>
 
@@ -52,17 +55,8 @@ const AnalyticsManager = {
     },
 
     renderTopicItem(topic) {
-        const trendIcons = {
-            up: '↑',
-            down: '↓',
-            stable: '→'
-        };
-
-        const trendTexts = {
-            up: 'улучшение',
-            down: 'ухудшение',
-            stable: 'стабильно'
-        };
+        const trendIcons = { up: '↑', down: '↓', stable: '→' };
+        const trendTexts = { up: 'улучшение', down: 'ухудшение', stable: 'стабильно' };
 
         return `
       <div class="feedback-item">
@@ -114,9 +108,7 @@ const AnalyticsManager = {
                 responsive: true,
                 maintainAspectRatio: true,
                 plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
+                    legend: { position: 'bottom' }
                 }
             }
         });
@@ -130,8 +122,14 @@ const AnalyticsManager = {
         if (format === 'csv') {
             Utils.exportToCSV(clients, `flowback_clients_${Date.now()}.csv`);
             Utils.showNotification('Данные экспортированы в CSV');
-        } else if (format === 'xlsx') {
-            Utils.showNotification('Экспорт в XLSX (функция в разработке)');
+        }
+        else if (format === 'xlsx') {
+            if (typeof ExcelExport !== "undefined") {
+                ExcelExport.exportClientData();
+                Utils.showNotification('Экспорт в Excel выполнен');
+            } else {
+                Utils.showNotification('Модуль ExcelExport не подключён');
+            }
         }
     }
 };

@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Инициализация компонентов
+        // Инициализация новых систем
+        AuthManager.init();          // Авторизация
+        TriggerManager.init();       // Триггеры
         ThemeManager.init();      // Инициализация темы
         AvatarManager.init();     // Инициализация аватарки (новое!)
         Navigation.init();

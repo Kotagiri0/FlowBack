@@ -22,11 +22,13 @@ const CONFIG = {
 
   // Роли клиентов
     ROLES: {
-        LPR: 'ЛПР',
-        TECH_DEPLOY: 'Техспец внедрения',      // НОВОЕ
-        TECH_SUPPORT: 'Техспец сопровождения',  // НОВОЕ
-        BUSINESS: 'Бизнес-юзер'
+        ADMIN: 'admin',
+        LPR: 'lpr',
+        TECH_DEPLOY: 'tech_deploy',
+        TECH_SUPPORT: 'tech_support',
+        BUSINESS: 'business'
     },
+
 
   // Триггеры
   TRIGGERS: {

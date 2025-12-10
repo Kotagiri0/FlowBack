@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlowBack - Система сбора фидбека</title>
-
     <!-- CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
@@ -15,6 +14,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/avatar.css">
+    <link rel="stylesheet" href="css/roleAuth.css"> <!-- Добавлено: Стили для roleAuth -->
 </head>
 <body>
 <div class="container">
@@ -33,28 +33,17 @@
                         <div id="avatar-placeholder" class="avatar-placeholder">ИП</div>
                     </div>
                     <div class="avatar-status"></div>
-
                     <!-- Dropdown меню -->
                     <div class="avatar-dropdown" id="avatar-dropdown">
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.openProfile()">
-                            👤 Профиль
-                        </div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.changeAvatar()">
-                            📷 Изменить аватарку
-                        </div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.removeAvatar()">
-                            🗑️ Удалить аватарку
-                        </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.openProfile()"> 👤 Профиль </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.changeAvatar()"> 📷 Изменить аватарку </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.removeAvatar()"> 🗑️ Удалить аватарку </div>
                         <div class="avatar-dropdown-divider"></div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.logout()">
-                            🚪 Выход
-                        </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.logout()"> 🚪 Выход </div>
                     </div>
                 </div>
-
                 <!-- Скрытый input для загрузки файла -->
                 <input type="file" id="avatar-upload-input" accept="image/*" style="display: none;">
-
                 <!-- Переключатель темы -->
                 <div class="theme-switcher" id="theme-switcher" title="Переключить тему">
                     <div class="theme-toggle"></div>
@@ -64,7 +53,6 @@
             </div>
         </div>
     </header>
-
     <!-- Navigation -->
     <div class="nav-tabs">
         <button class="tab active" data-tab="dashboard">📊 Дашборд</button>
@@ -75,29 +63,21 @@
         <button class="tab" data-tab="feedback">💬 Фидбек</button>
         <button class="tab" data-tab="settings">⚙️ Настройки</button>
     </div>
-
     <!-- Dashboard Section -->
     <div id="dashboard" class="content-section active"></div>
-
     <!-- Surveys Section -->
     <div id="surveys" class="content-section"></div>
-
     <!-- Create Survey Section -->
     <div id="create" class="content-section"></div>
-
     <!-- Clients Section -->
     <div id="clients" class="content-section"></div>
-
     <!-- Analytics Section -->
     <div id="analytics" class="content-section"></div>
-
     <!-- Feedback Section -->
     <div id="feedback" class="content-section"></div>
-
     <!-- Settings Section -->
     <div id="settings" class="content-section"></div>
 </div>
-
 <!-- Modals -->
 <div id="addClient" class="modal">
     <div class="modal-content">
@@ -121,15 +101,14 @@
             <label>Роли</label>
             <select multiple id="clientRoles">
                 <option>ЛПР</option>
-                <option>Техспец внедрения</option>      <!-- НОВОЕ -->
-                <option>Техспец сопровождения</option>  <!-- НОВОЕ -->
+                <option>Техспец внедрения</option> <!-- НОВОЕ -->
+                <option>Техспец сопровождения</option> <!-- НОВОЕ -->
                 <option>Бизнес-юзер</option>
             </select>
         </div>
         <button class="btn btn-primary" onclick="ClientManager.addClient()">Добавить</button>
     </div>
 </div>
-
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/config.js"></script>
@@ -146,5 +125,14 @@
 <script src="js/analytics.js"></script>
 <script src="js/feedback.js"></script>
 <script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/triggers.js"></script>
+<script src="js/surveyTypes.js"></script>
+<script src="js/excelExport.js"></script>
+<script src="js/roleAuth.js"></script>
+<!-- Telegram WebApp SDK -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<!-- SheetJS для Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
