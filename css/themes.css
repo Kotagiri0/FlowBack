@@ -1,71 +1,78 @@
 /* Theme Styles */
 
-/* Light Theme (по умолчанию) */
+/* Light Theme (зелено-белая по умолчанию) */
 :root {
-    --theme-bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --theme-bg-primary: linear-gradient(135deg, #10b981 0%, #0da271 100%);
     --theme-bg-secondary: #ffffff;
-    --theme-bg-tertiary: #f9f9f9;
-    --theme-text-primary: #333333;
-    --theme-text-secondary: #666666;
-    --theme-border: #e0e0e0;
-    --theme-shadow: rgba(0, 0, 0, 0.1);
-    --theme-hover: #f0f0f0;
+    --theme-bg-tertiary: #f8fafc;
+    --theme-bg-accent: #f0fdf9;
+    --theme-text-primary: #1e293b;
+    --theme-text-secondary: #475569;
+    --theme-text-accent: #047857;
+    --theme-border: #e2e8f0;
+    --theme-border-accent: #a7f3d0;
+    --theme-shadow: rgba(16, 185, 129, 0.1);
+    --theme-hover: #f1f5f9;
 }
 
-/* Dark Theme */
+/* Dark Theme - зеленая тема с темным фоном */
 [data-theme="dark"] {
-    /* Основные цвета из вашей палитры */
-    --primary-color: #09a773; /* 9, 167, 115 - бирюзовый акцент */
-    --secondary-color: #1a2732; /* 26, 39, 50 - темно-синий */
+    /* Основные цвета из зеленой палитры */
+    --primary-color: #10b981;
+    --primary-hover: #0da271;
+    --primary-active: #0b8a61;
 
-    /* Дополнительные цвета (подобраны для гармонии) */
-    --accent-teal: #0bc98b; /* Светлее основного, для hover */
-    --accent-purple: #6c5ce7; /* Фиолетовый акцент */
-    --accent-blue: #4a90e2; /* Голубой для ссылок */
+    /* Дополнительные акцентные цвета */
+    --secondary-color: #8b5cf6;
+    --secondary-hover: #7c3aed;
+    --accent-color: #0ea5e9;
+    --accent-hover: #0284c7;
 
     /* Градиенты */
-    --theme-bg-primary: linear-gradient(135deg, #09a773 0%, #0bc98b 100%);
-    --primary-gradient: linear-gradient(135deg, #09a773 0%, #0bc98b 100%);
-    --secondary-gradient: linear-gradient(135deg, #6c5ce7 0%, #4a90e2 100%);
-    --tertiary-gradient: linear-gradient(135deg, #4a90e2 0%, #09a773 100%);
-    --success-gradient: linear-gradient(135deg, #09a773 0%, #00d68f 100%);
+    --theme-bg-primary: linear-gradient(135deg, #10b981 0%, #0da271 100%);
+    --primary-gradient: linear-gradient(135deg, #10b981 0%, #0bc98b 100%);
+    --secondary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    --tertiary-gradient: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
 
     /* Фоны */
-    --theme-bg-secondary: #1a2732; /* Основной фон */
-    --theme-bg-tertiary: #243340; /* Вторичный фон (светлее) */
-    --theme-bg-card: #2c3e50; /* Фон карточек */
-    --theme-bg-hover: #34495e; /* Hover состояние */
+    --theme-bg-secondary: #0f172a; /* Темный сине-серый фон */
+    --theme-bg-tertiary: #1e293b; /* Вторичный темный фон */
+    --theme-bg-card: #334155; /* Фон карточек */
+    --theme-bg-hover: #475569; /* Hover состояние */
+    --theme-bg-accent: rgba(16, 185, 129, 0.1);
 
     /* Текст */
-    --theme-text-primary: #ecf0f1; /* Основной текст */
-    --theme-text-secondary: #95a5a6; /* Второстепенный текст */
-    --theme-text-accent: #09a773; /* Акцентный текст */
+    --theme-text-primary: #f8fafc; /* Основной светлый текст */
+    --theme-text-secondary: #cbd5e1; /* Второстепенный текст */
+    --theme-text-accent: #10b981; /* Акцентный зеленый текст */
 
     /* Границы */
-    --theme-border: #34495e;
-    --theme-border-light: #3d566e;
+    --theme-border: #475569;
+    --theme-border-light: #64748b;
+    --theme-border-accent: rgba(16, 185, 129, 0.3);
 
     /* Тени */
     --theme-shadow: rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 4px 15px rgba(16, 185, 129, 0.1);
+    --shadow-md: 0 4px 15px rgba(16, 185, 129, 0.2);
+    --shadow-lg: 0 8px 32px rgba(16, 185, 129, 0.15);
 
     /* Цвета для состояний */
-    --success: #00d68f;
-    --warning: #ffb822;
-    --error: #e74c3c;
+    --success: #10b981;
+    --warning: #fbbf24;
+    --error: #f87171;
 
     /* Оттенки серого */
-    --gray-50: #2c3e50;
-    --gray-100: #34495e;
-    --gray-200: #3d566e;
-    --gray-400: #7f8c8d;
-    --gray-600: #95a5a6;
-    --gray-800: #ecf0f1;
+    --gray-50: #1e293b;
+    --gray-100: #334155;
+    --gray-200: #475569;
+    --gray-400: #94a3b8;
+    --gray-600: #cbd5e1;
+    --gray-800: #f8fafc;
 
-    --white: #1a2732;
-    --bg-gradient: linear-gradient(135deg, #1a2732 0%, #243340 100%);
+    --white: #0f172a;
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
 /* Применение темной темы к элементам */
@@ -75,30 +82,48 @@
 }
 
 [data-theme="dark"] header {
-    background: rgba(26, 39, 50, 0.95);
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
     color: var(--theme-text-primary);
+    border-bottom: 1px solid var(--theme-border);
 }
 
 [data-theme="dark"] .nav-tabs {
     background: var(--theme-bg-tertiary);
+    border-bottom: 1px solid var(--theme-border);
 }
 
 [data-theme="dark"] .tab {
     background: var(--theme-bg-card);
     color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
 }
 
 [data-theme="dark"] .tab:hover {
     background: var(--theme-bg-hover);
+    border-color: var(--primary-color);
 }
 
 [data-theme="dark"] .content-section {
     background: var(--theme-bg-secondary);
     color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
+    box-shadow: var(--shadow-sm);
 }
 
 [data-theme="dark"] .metric-card {
-    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    box-shadow: var(--shadow-lg);
+    color: white;
+    border: none;
+}
+
+[data-theme="dark"] .metric-card h3 {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] .metric-change.positive {
+    color: #a7f3d0;
 }
 
 [data-theme="dark"] .survey-item,
@@ -108,12 +133,16 @@
 [data-theme="dark"] .chart-container {
     background: var(--theme-bg-card);
     color: var(--theme-text-primary);
-    border-color: var(--theme-border);
+    border: 1px solid var(--theme-border);
+    box-shadow: var(--shadow-sm);
 }
 
 [data-theme="dark"] .survey-item:hover,
 [data-theme="dark"] .client-card:hover {
     background: var(--theme-bg-hover);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 [data-theme="dark"] .survey-info h3,
@@ -132,8 +161,8 @@
 [data-theme="dark"] .form-group input,
 [data-theme="dark"] .form-group select,
 [data-theme="dark"] .form-group textarea {
-    background: var(--theme-bg-card);
-    border-color: var(--theme-border);
+    background: var(--theme-bg-tertiary);
+    border: 2px solid var(--theme-border);
     color: var(--theme-text-primary);
 }
 
@@ -141,82 +170,117 @@
 [data-theme="dark"] .form-group select:focus,
 [data-theme="dark"] .form-group textarea:focus {
     border-color: var(--primary-color);
+    background: var(--theme-bg-card);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
 }
 
 [data-theme="dark"] .trigger-item {
-    background: var(--theme-bg-card);
+    background: var(--theme-bg-tertiary);
     color: var(--theme-text-primary);
+    border: 2px solid var(--theme-border);
+}
+
+[data-theme="dark"] .trigger-item:hover {
+    border-color: var(--primary-color);
+    background: var(--theme-bg-hover);
 }
 
 [data-theme="dark"] .trigger-item.selected {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
     color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
 }
 
 [data-theme="dark"] .question-builder {
-    background: var(--theme-bg-card);
+    background: var(--theme-bg-tertiary);
+    border: 2px solid var(--theme-border-accent);
 }
 
 [data-theme="dark"] .question-item {
-    background: var(--theme-bg-tertiary);
-    border-left-color: var(--primary-color);
+    background: var(--theme-bg-card);
+    border-left: 4px solid var(--primary-color);
     color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
+}
+
+[data-theme="dark"] .question-item:hover {
+    border-left-color: var(--accent-color);
+    border-color: var(--primary-color);
 }
 
 [data-theme="dark"] .modal {
     background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
 }
 
 [data-theme="dark"] .modal-content {
     background: var(--theme-bg-secondary);
     color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
+    box-shadow: var(--shadow-lg);
 }
 
 [data-theme="dark"] .btn-secondary {
     background: var(--theme-bg-card);
     color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
 }
 
 [data-theme="dark"] .btn-secondary:hover {
     background: var(--theme-bg-hover);
+    border-color: var(--primary-color);
 }
 
 [data-theme="dark"] .progress-bar {
-    background: var(--theme-bg-card);
+    background: var(--theme-bg-tertiary);
+}
+
+[data-theme="dark"] .progress-fill {
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
 }
 
 [data-theme="dark"] .badge {
     background: var(--secondary-gradient);
+    color: white;
+}
+
+[data-theme="dark"] .role-tag {
+    background: linear-gradient(135deg, var(--primary-color) 0%, rgba(16, 185, 129, 0.8) 100%);
+    color: white;
 }
 
 /* Переключатель темы */
 .theme-switcher {
     position: relative;
-    width: 60px;
-    height: 30px;
+    width: 64px;
+    height: 32px;
     background: var(--gray-200);
-    border-radius: 15px;
+    border-radius: 16px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    padding: 3px;
+    padding: 4px;
+    border: 1px solid var(--theme-border);
 }
 
 .theme-switcher::before {
     content: '☀️';
     position: absolute;
-    left: 5px;
+    left: 8px;
     font-size: 16px;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 .theme-switcher::after {
     content: '🌙';
     position: absolute;
-    right: 5px;
+    right: 8px;
     font-size: 16px;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
 .theme-toggle {
@@ -225,53 +289,83 @@
     height: 24px;
     background: white;
     border-radius: 50%;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    left: 3px;
+    left: 4px;
 }
 
 [data-theme="dark"] .theme-switcher {
-    background: var(--theme-bg-card);
+    background: var(--theme-bg-tertiary);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .theme-switcher::before {
+    opacity: 0.6;
+}
+
+[data-theme="dark"] .theme-switcher::after {
+    color: var(--primary-color);
 }
 
 [data-theme="dark"] .theme-toggle {
-    left: 33px;
+    left: 36px;
     background: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 /* Дополнительные улучшения для темной темы */
 [data-theme="dark"] .rating-btn {
     background: var(--theme-bg-card);
-    border-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     color: var(--primary-color);
 }
 
-[data-theme="dark"] .rating-btn:hover,
+[data-theme="dark"] .rating-btn:hover {
+    background: var(--theme-bg-hover);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
 [data-theme="dark"] .rating-btn.selected {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border-color: var(--primary-color);
     color: white;
 }
 
 [data-theme="dark"] .close-modal {
     color: var(--theme-text-secondary);
+    background: var(--theme-bg-tertiary);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 [data-theme="dark"] .close-modal:hover {
     color: var(--theme-text-primary);
+    background: var(--theme-bg-hover);
 }
 
 /* Улучшение читаемости в темной теме */
-[data-theme="dark"] .feedback-item,
-[data-theme="dark"] .question-item {
-    border-left-color: var(--primary-color);
+[data-theme="dark"] .feedback-item {
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .feedback-item:hover {
+    border-left-color: var(--accent-color);
 }
 
 [data-theme="dark"] .stat-box .value {
     color: var(--primary-color);
+    font-weight: 700;
 }
 
 [data-theme="dark"] label {
     color: var(--theme-text-primary);
+    font-weight: 500;
 }
 
 /* Placeholder для темной темы */
@@ -280,11 +374,18 @@
     opacity: 0.6;
 }
 
+[data-theme="dark"] :-ms-input-placeholder {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] ::-ms-input-placeholder {
+    color: var(--theme-text-secondary);
+}
+
 /* Исправление для секции NLP топиков */
 [data-theme="dark"] .feedback-item {
     background: var(--theme-bg-card);
     color: var(--theme-text-primary);
-    border-left-color: var(--primary-color);
 }
 
 [data-theme="dark"] .feedback-item strong {
@@ -300,23 +401,127 @@
 }
 
 /* Дополнительная секция с фоном */
-[data-theme="dark"] div[style*="background: #f9f9f9"] {
+[data-theme="dark"] div[style*="background: #f9f9f9"],
+[data-theme="dark"] div[style*="background: #f8fafc"] {
     background: var(--theme-bg-card) !important;
 }
 
-[data-theme="dark"] div[style*="background: white"] {
+[data-theme="dark"] div[style*="background: white"],
+[data-theme="dark"] div[style*="background: #ffffff"] {
     background: var(--theme-bg-tertiary) !important;
 }
 
 /* NLP Topics секция */
 [data-theme="dark"] .nlp-topics-section {
     background: var(--theme-bg-card);
-    padding: 20px;
-    border-radius: 10px;
+    padding: 24px;
+    border-radius: 12px;
     margin-top: 30px;
+    border: 1px solid var(--theme-border);
 }
 
 [data-theme="dark"] .nlp-topics-section h3 {
+    color: var(--theme-text-accent);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 12px;
+}
+
+/* Кнопки в темной теме */
+[data-theme="dark"] .btn-primary {
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+}
+
+/* Иконки и SVG в темной теме */
+[data-theme="dark"] svg,
+[data-theme="dark"] path,
+[data-theme="dark"] .icon {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] svg:hover,
+[data-theme="dark"] .icon:hover {
+    color: var(--primary-color);
+}
+
+/* Таблицы в темной теме */
+[data-theme="dark"] table {
+    background: var(--theme-bg-card);
+    border-color: var(--theme-border);
+}
+
+[data-theme="dark"] th {
+    background: var(--theme-bg-tertiary);
+    color: var(--theme-text-accent);
+    border-color: var(--theme-border);
+}
+
+[data-theme="dark"] td {
+    border-color: var(--theme-border);
     color: var(--theme-text-primary);
-    margin-bottom: 15px;
+}
+
+[data-theme="dark"] tr:hover {
+    background: var(--theme-bg-hover);
+}
+
+/* Навигация в темной теме */
+[data-theme="dark"] .breadcrumb,
+[data-theme="dark"] .pagination {
+    background: var(--theme-bg-card);
+    border-color: var(--theme-border);
+}
+
+[data-theme="dark"] .breadcrumb-item,
+[data-theme="dark"] .page-link {
+    color: var(--theme-text-secondary);
+}
+
+[data-theme="dark"] .breadcrumb-item:hover,
+[data-theme="dark"] .page-link:hover {
+    color: var(--primary-color);
+    background: var(--theme-bg-hover);
+}
+
+/* Сентимент теги в темной теме */
+[data-theme="dark"] .sentiment.positive {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+[data-theme="dark"] .sentiment.neutral {
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+}
+
+[data-theme="dark"] .sentiment.negative {
+    background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+}
+
+/* Подсветка текста */
+[data-theme="dark"] mark,
+[data-theme="dark"] .highlight {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--primary-color);
+}
+
+/* Скроллбар в темной теме */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 10px;
+    background: var(--theme-bg-tertiary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--theme-border);
+    border-radius: 5px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--theme-bg-secondary);
 }
