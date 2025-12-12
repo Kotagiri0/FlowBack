@@ -1,154 +1,154 @@
-// State Management
+// Глобальное состояние приложения
+
 const State = {
-    currentTab: 'dashboard',
+  // Текущий пользователь (для демо)
+  currentUser: {
+    id: 'user_1',
+    name: 'Иван Петров',
+    email: 'ivan.petrov@arenadata.tech',
+    role: 'admin', // admin, lpr, tech_implementation, tech_support, business_user
+    avatar: null
+  },
 
-    surveys: [
+  // Список опросов
+  surveys: [
+    {
+      id: 'survey_1',
+      title: 'Оценка пилотного проекта',
+      description: 'Оценка первого впечатления от внедрения',
+      targetRole: 'tech_implementation',
+      trigger: 'pilot_complete',
+      metric: 'nps',
+      clients: ['client_1', 'client_2'],
+      status: 'active',
+      createdAt: '2024-12-01T10:00:00Z',
+      sent: 2,
+      responses: 1,
+      questions: [
         {
-            id: 1,
-            name: 'После демонстрации продукта',
-            targetAudience: 'ЛПР',
-            metrics: ['NPS', 'CSAT'],
-            status: 'active',
-            responses: 42
+          id: 'q_1',
+          text: 'Насколько гладко прошло развертывание?',
+          type: 'rating'
         },
         {
-            id: 2,
-            name: 'Оценка спринта (техспецы)',
-            targetAudience: 'Технические специалисты',
-            metrics: ['CES', 'кастомные вопросы'],
-            status: 'active',
-            responses: 28
-        },
-        {
-            id: 3,
-            name: 'Удовлетворенность релизом',
-            targetAudience: 'Бизнес-пользователи',
-            metrics: ['CSAT'],
-            status: 'paused',
-            responses: 15
+          id: 'q_2',
+          text: 'Какие трудности возникли?',
+          type: 'text'
         }
-    ],
-
-    clients: [
+      ]
+    },
+    {
+      id: 'survey_2',
+      title: 'Квартальный обзор проекта',
+      description: 'Оценка прогресса и соответствия бизнес-целям',
+      targetRole: 'lpr',
+      trigger: 'quarterly_review',
+      metric: 'csat',
+      clients: ['client_1'],
+      status: 'active',
+      createdAt: '2024-12-05T14:30:00Z',
+      sent: 1,
+      responses: 0,
+      questions: [
         {
-            id: 1,
-            company: 'ООО "ТехноЛаб"',
-            contact: 'Алексей Иванов',
-            email: 'alex@technolab.ru',
-            roles: ['ЛПР'],
-            lastSurvey: '2024-11-28'
-        },
-        {
-            id: 2,
-            company: 'ПАО "Мегакорп"',
-            contact: 'Мария Петрова',
-            email: 'maria@megacorp.ru',
-            roles: ['Техспец внедрения', 'Бизнес-юзер'],
-            lastSurvey: '2024-11-21'
-        },
-        {
-            id: 3,
-            company: 'ЗАО "Инновации+"',
-            contact: 'Дмитрий Сидоров',
-            email: 'dmitry@innov.ru',
-            roles: ['ЛПР', 'Техспец сопровождения'],
-            lastSurvey: '2024-12-01'
+          id: 'q_1',
+          text: 'Насколько проект соответствует бизнес-целям?',
+          type: 'rating'
         }
-    ],
-
-    metrics: {
-        nps: {
-            current: 67,
-            change: '+5',
-            trend: 'up',
-            history: [54, 58, 61, 62, 67, 70]
-        },
-        csat: {
-            current: 4.3,
-            change: '+0.2',
-            trend: 'up'
-        },
-        ces: {
-            current: 2.1,
-            change: '-0.3',
-            trend: 'down'
-        },
-        responses: {
-            current: 342,
-            period: 'за последние 30 дней'
-        }
+      ]
     },
-
-    feedback: [
-        {
-            id: 1,
-            client: 'ПАО "Мегакорп"',
-            contact: 'Мария Петрова',
-            date: '2024-11-26',
-            nps: 7,
-            ces: 3,
-            sentiment: 'neutral',
-            comment: 'Хотелось бы более подробную документацию.'
-        }
-    ],
-
-    analytics: {
-        activeSurveys: 12,
-        responseRate: 68,
-        totalClients: 45,
-        topTopics: [
-            {
-                topic: 'Производительность системы',
-                mentions: 23,
-                sentiment: 'negative',
-                trend: 'down'
-            },
-            {
-                topic: 'Качество поддержки',
-                mentions: 18,
-                sentiment: 'positive',
-                trend: 'up'
-            },
-            {
-                topic: 'Документация API',
-                mentions: 15,
-                sentiment: 'neutral',
-                trend: 'stable'
-            }
-        ]
-    },
-
-    getSurveys() {
-        return this.surveys;
-    },
-
-    getSurveyById(id) {
-        return this.surveys.find(s => s.id === id);
-    },
-
-    addSurvey(survey) {
-        survey.id = this.surveys.length + 1;
-        this.surveys.push(survey);
-    },
-
-    getClients() {
-        return this.clients;
-    },
-
-    addClient(client) {
-        client.id = this.clients.length + 1;
-        this.clients.push(client);
-    },
-
-    getMetrics() {
-        return this.metrics;
-    },
-
-    getFeedback() {
-        return this.feedback;
-    },
-
-    getAnalytics() {
-        return this.analytics;
+    {
+      id: 'survey_3',
+      title: 'Оценка нового дашборда',
+      description: 'Полезность и понятность нового отчета',
+      targetRole: 'business_user',
+      trigger: 'new_dashboard',
+      metric: 'ces',
+      clients: ['client_3'],
+      status: 'active',
+      createdAt: '2024-12-10T09:00:00Z',
+      sent: 1,
+      responses: 0,
+      questions: []
     }
-};
+  ],
+
+  // Клиенты
+  clients: [
+    {
+      id: 'client_1',
+      company: 'ООО "ТехноДата"',
+      contact: 'Алексей Смирнов',
+      email: 'a.smirnov@technodata.ru',
+      roles: ['lpr', 'tech_implementation'],
+      status: 'active',
+      createdAt: '2024-11-15T10:00:00Z'
+    },
+    {
+      id: 'client_2',
+      company: 'ПАО "МегаБанк"',
+      contact: 'Мария Иванова',
+      email: 'm.ivanova@megabank.ru',
+      roles: ['tech_implementation', 'tech_support'],
+      status: 'active',
+      createdAt: '2024-11-20T11:30:00Z'
+    },
+    {
+      id: 'client_3',
+      company: 'АО "РосРетейл"',
+      contact: 'Дмитрий Козлов',
+      email: 'd.kozlov@rosretail.ru',
+      roles: ['business_user'],
+      status: 'active',
+      createdAt: '2024-12-01T09:15:00Z'
+    }
+  ],
+
+  // Фидбек (ответы на опросы)
+  feedback: [
+    {
+      id: 'fb_1',
+      surveyId: 'survey_1',
+      clientId: 'client_1',
+      userEmail: 'a.smirnov@technodata.ru',
+      metric: 'nps',
+      score: 9,
+      comment: 'Отличный продукт, развертывание прошло гладко. Небольшие проблемы с документацией.',
+      answers: [
+        {
+          questionId: 'q_1',
+          answer: '4'
+        },
+        {
+          questionId: 'q_2',
+          answer: 'Не хватало примеров конфигурации для нашей инфраструктуры'
+        }
+      ],
+      submittedAt: '2024-12-02T15:30:00Z'
+    },
+    {
+      id: 'fb_2',
+      surveyId: 'survey_1',
+      clientId: 'client_2',
+      userEmail: 'm.ivanova@megabank.ru',
+      metric: 'nps',
+      score: 7,
+      comment: 'В целом неплохо, но есть куда расти',
+      answers: [
+        {
+          questionId: 'q_1',
+          answer: '3'
+        },
+        {
+          questionId: 'q_2',
+          answer: 'Долгая настройка безопасности'
+        }
+      ],
+      submittedAt: '2024-12-03T10:15:00Z'
+    }
+  ],
+
+  // Метрики (агрегированные данные)
+  metrics: {
+    nps: {
+      current: 67

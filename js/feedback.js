@@ -1,88 +1,119 @@
-// Feedback Manager
 const FeedbackManager = {
-  async render() {
-    const feedback = await API.getFeedback();
+  render() {
+    const section = document.getElementById('feedback');
 
-    const feedbackSection = document.getElementById('feedback');
-    feedbackSection.innerHTML = `
-      <h2 style="margin-bottom: 20px;">Полученный фидбек</h2>
-      
-      <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <select id="feedbackFilter" onchange="FeedbackManager.filterFeedback()" 
-                style="padding: 10px; border-radius: 8px; border: 2px solid #e0e0e0;">
-          <option value="all">Все отзывы</option>
-          <option value="positive">Позитивные</option>
-          <option value="neutral">Нейтральные</option>
-          <option value="negative">Негативные</option>
-        </select>
-        
-        <input type="text" id="feedbackSearch" placeholder="Поиск по клиенту..." 
-               onkeyup="FeedbackManager.searchFeedback()"
-               style="padding: 10px; border-radius: 8px; border: 2px solid #e0e0e0; flex: 1; min-width: 200px;">
+    section.innerHTML = `
+      <div class="section-header">
+        <h2>💬 Фидбек</h2>
+        <p style="color: #666;">Все ответы на опросы</p>
       </div>
 
-      <div id="feedbackList">
-        ${feedback.map(item => this.renderFeedbackItem(item)).join('')}
-      </div>
-
-      ${feedback.length === 0 ? '<p style="color: #666; text-align: center; padding: 40px;">Нет фидбека</p>' : ''}
-    `;
-  },
-
-  renderFeedbackItem(item) {
-    return `
-      <div class="feedback-item" data-sentiment="${item.sentiment}" data-client="${item.client.toLowerCase()}">
-        <div class="feedback-header">
-          <div>
-            <strong>${item.client}</strong> • ${item.contact}
-            <span style="color: #666; margin-left: 10px;">
-              ${Utils.formatRelativeTime(item.date)}
-            </span>
-          </div>
-          <span class="sentiment ${item.sentiment}">
-            ${this.getSentimentText(item.sentiment)}
-          </span>
+      <!-- Фильтры -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div style="display: flex; gap: 15px;">
+          <select id="feedbackMetricFilter" onchange="FeedbackManager.applyFilters()" style="flex: 1;">
+            <option value="">Все метрики</option>
+            <option value="nps">NPS</option>
+            <option value="csat">CSAT</option>
+            <option value="ces">CES</option>
+          </select>
+          <select id="feedbackSurveyFilter" onchange="FeedbackManager.applyFilters()" style="flex: 1;">
+            <option value="">Все опросы</option>
+            ${State.surveys.map(s => `<option value="${s.id}">${s.title}</option>`).join('')}
+          </select>
         </div>
-        <p style="margin: 10px 0;">
-          ${item.nps !== undefined ? `NPS: <strong>${item.nps}/10</strong>` : ''}
-          ${item.ces !== undefined ? ` • CES: <strong>${item.ces}/5</strong>` : ''}
-          ${item.csat !== undefined ? ` • CSAT: <strong>${item.csat}/5</strong>` : ''}
-        </p>
-        <p style="color:#666;">${item.comment}</p>
+      </div>
+
+      <!-- Список фидбека -->
+      <div id="feedbackList">
+        ${this.renderFeedbackList()}
       </div>
     `;
   },
 
-  getSentimentText(sentiment) {
-    const texts = {
-      positive: 'Позитивный',
-      neutral: 'Нейтральный',
-      negative: 'Негативный'
-    };
-    return texts[sentiment] || sentiment;
+  renderFeedbackList(feedback = State.feedback) {
+    if (feedback.length === 0) {
+      return `
+        <div class="card" style="text-align: center; padding: 40px;">
+          <div style="font-size: 48px; margin-bottom: 20px;">💬</div>
+          <h3 style="color: #666;">Нет фидбека</h3>
+          <p style="color: #999;">Ответы на опросы появятся здесь</p>
+        </div>
+      `;
+    }
+
+    return feedback.map(fb => this.renderFeedbackCard(fb)).join('');
   },
 
-  filterFeedback() {
-    const filterValue = document.getElementById('feedbackFilter').value;
-    const items = document.querySelectorAll('.feedback-item');
+  renderFeedbackCard(fb) {
+    const survey = State.surveys.find(s => s.id === fb.surveyId);
+    const client = State.clients.find(c => c.id === fb.clientId);
 
-    items.forEach(item => {
-      if (filterValue === 'all') {
-        item.style.display = 'block';
-      } else {
-        const sentiment = item.dataset.sentiment;
-        item.style.display = sentiment === filterValue ? 'block' : 'none';
-      }
-    });
+    return `
+      <div class="card" style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+          <div>
+            <h3 style="margin: 0 0 5px 0;">${survey?.title || 'Неизвестный опрос'}</h3>
+            <div style="color: #666; font-size: 14px;">
+              ${client?.company || 'Неизвестный клиент'} • ${fb.userEmail}
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 28px; font-weight: bold; color: ${Utils.getMetricColor(fb.metric, fb.score)};">
+              ${fb.score}
+            </div>
+            <div style="color: #666; font-size: 12px;">
+              ${fb.metric.toUpperCase()}
+            </div>
+          </div>
+        </div>
+
+        ${fb.comment ? `
+          <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <strong style="color: #666; font-size: 14px;">Комментарий:</strong>
+            <p style="margin: 5px 0 0 0; color: #333;">${fb.comment}</p>
+          </div>
+        ` : ''}
+
+        ${fb.answers && fb.answers.length > 0 ? `
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 15px;">
+            <strong style="color: #666; font-size: 14px;">Дополнительные ответы:</strong>
+            ${fb.answers.map(answer => {
+              const question = survey?.questions?.find(q => q.id === answer.questionId);
+              return `
+                <div style="margin-top: 10px;">
+                  <div style="color: #666; font-size: 13px;">${question?.text || 'Вопрос'}</div>
+                  <div style="color: #333; margin-top: 3px;">${answer.answer}</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+
+        <div style="color: #999; font-size: 12px; margin-top: 15px;">
+          ${Utils.timeAgo(fb.submittedAt)}
+        </div>
+      </div>
+    `;
   },
 
-  searchFeedback() {
-    const searchValue = document.getElementById('feedbackSearch').value.toLowerCase();
-    const items = document.querySelectorAll('.feedback-item');
+  applyFilters() {
+    const metricFilter = document.getElementById('feedbackMetricFilter').value;
+    const surveyFilter = document.getElementById('feedbackSurveyFilter').value;
 
-    items.forEach(item => {
-      const client = item.dataset.client;
-      item.style.display = client.includes(searchValue) ? 'block' : 'none';
-    });
+    let filtered = State.feedback;
+
+    if (metricFilter) {
+      filtered = filtered.filter(fb => fb.metric === metricFilter);
+    }
+
+    if (surveyFilter) {
+      filtered = filtered.filter(fb => fb.surveyId === surveyFilter);
+    }
+
+    const container = document.getElementById('feedbackList');
+    if (container) {
+      container.innerHTML = this.renderFeedbackList(filtered);
+    }
   }
 };

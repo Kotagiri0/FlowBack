@@ -1,39 +1,25 @@
-// Main Application Initialization
-document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🔄 FlowBack v' + CONFIG.VERSION + ' загружается...');
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 FlowBack v' + CONFIG.VERSION);
 
-    try {
-        // Инициализация компонентов
-        // Инициализация новых систем
-        AuthManager.init();          // Авторизация
-        TriggerManager.init();       // Триггеры
-        ThemeManager.init();      // Инициализация темы
-        AvatarManager.init();     // Инициализация аватарки (новое!)
-        Navigation.init();
-        ModalManager.init();
+  // Инициализация модулей
+  try {
+    ThemeManager.init();
+    console.log('✅ ThemeManager initialized');
 
-        // Загружаем дашборд по умолчанию
-        await DashboardManager.render();
+    AvatarManager.init();
+    console.log('✅ AvatarManager initialized');
 
-        console.log('✅ FlowBack успешно загружен');
-    } catch (error) {
-        console.error('❌ Ошибка инициализации:', error);
-        Utils.showNotification('Ошибка загрузки приложения', 'error');
-    }
-});
+    RoleAuth.init();
+    console.log('✅ RoleAuth initialized');
 
-// Глобальные обработчики
-window.addEventListener('error', (event) => {
-    console.error('Глобальная ошибка:', event.error);
-});
+    Navigation.init();
+    console.log('✅ Navigation initialized');
 
-// Предотвращаем потерю данных при закрытии страницы
-window.addEventListener('beforeunload', (event) => {
-    // Проверяем, есть ли несохраненные изменения
-    const hasUnsavedChanges = false; // TODO: реализовать проверку
+    Modals.init();
+    console.log('✅ Modals initialized');
 
-    if (hasUnsavedChanges) {
-        event.preventDefault();
-        event.returnValue = '';
-    }
+    console.log('🎉 Приложение успешно запущено!');
+  } catch (error) {
+    console.error('❌ Ошибка инициализации:', error);
+  }
 });

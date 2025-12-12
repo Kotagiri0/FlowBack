@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlowBack - Система сбора фидбека</title>
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/base.css">
@@ -11,11 +12,9 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/modals.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/avatar.css">
-    <link rel="stylesheet" href="css/roleAuth.css">
-    <link rel="stylesheet" href="css/surveyTaking.css"> <!-- НОВОЕ -->
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 <div class="container">
@@ -24,7 +23,7 @@
         <div class="header-content">
             <div>
                 <h1>🔄 FlowBack</h1>
-                <p style="color: #666; margin-top: 5px;">Система сбора и анализа клиентского фидбека</p>
+                <p style="color: rgba(255,255,255,0.9); margin-top: 5px;">Система сбора и анализа клиентского фидбека</p>
             </div>
             <div class="user-info">
                 <!-- Avatar -->
@@ -36,21 +35,31 @@
                     <div class="avatar-status"></div>
                     <!-- Dropdown меню -->
                     <div class="avatar-dropdown" id="avatar-dropdown">
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.openProfile()"> 👤 Профиль </div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.changeAvatar()"> 📷 Изменить аватарку </div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.removeAvatar()"> 🗑️ Удалить аватарку </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.openProfile()">
+                            👤 Профиль
+                        </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.changeAvatar()">
+                            📷 Изменить аватарку
+                        </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.removeAvatar()">
+                            🗑️ Удалить аватарку
+                        </div>
                         <div class="avatar-dropdown-divider"></div>
-                        <div class="avatar-dropdown-item" onclick="AvatarManager.logout()"> 🚪 Выход </div>
+                        <div class="avatar-dropdown-item" onclick="AvatarManager.logout()">
+                            🚪 Выход
+                        </div>
                     </div>
                 </div>
                 <!-- Скрытый input для загрузки файла -->
                 <input type="file" id="avatar-upload-input" accept="image/*" style="display: none;">
+
                 <!-- Переключатель темы -->
                 <div class="theme-switcher" id="theme-switcher" title="Переключить тему">
                     <div class="theme-toggle"></div>
                 </div>
+
                 <span class="badge">Pro Account</span>
-                <span style="color: #666;">Админ: Иван Петров</span>
+                <span style="color: rgba(255,255,255,0.9);">Админ: Иван Петров</span>
             </div>
         </div>
     </header>
@@ -96,25 +105,28 @@
             <button class="close-modal" data-modal="addClient">×</button>
         </div>
         <div class="form-group">
-            <label>Название компании</label>
+            <label>Название компании *</label>
             <input type="text" placeholder="ООО "…"" id="clientCompany">
         </div>
         <div class="form-group">
-            <label>Контактное лицо</label>
+            <label>Контактное лицо *</label>
             <input type="text" placeholder="Имя Фамилия" id="clientContact">
         </div>
         <div class="form-group">
-            <label>Email</label>
+            <label>Email *</label>
             <input type="email" placeholder="email@company.ru" id="clientEmail">
         </div>
         <div class="form-group">
-            <label>Роли</label>
-            <select multiple id="clientRoles">
-                <option>ЛПР</option>
-                <option>Техспец внедрения</option>
-                <option>Техспец сопровождения</option>
-                <option>Бизнес-юзер</option>
+            <label>Роли *</label>
+            <select multiple id="clientRoles" style="min-height: 120px;">
+                <option value="lpr">ЛПР</option>
+                <option value="tech_implementation">Техспец внедрения</option>
+                <option value="tech_support">Техспец сопровождения</option>
+                <option value="business_user">Бизнес-юзер</option>
             </select>
+            <small style="color: #666; display: block; margin-top: 5px;">
+                Удерживайте Ctrl/Cmd для выбора нескольких ролей
+            </small>
         </div>
         <button class="btn btn-primary" onclick="ClientManager.addClient()">Добавить</button>
     </div>
@@ -122,31 +134,25 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- App Scripts -->
 <script src="js/config.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/state.js"></script>
-<script src="js/api.js"></script>
 <script src="js/theme.js"></script>
 <script src="js/avatar.js"></script>
 <script src="js/modals.js"></script>
+<script src="js/triggers.js"></script>
+<script src="js/roleAuth.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/surveys.js"></script>
-<script src="js/surveyTaking.js"></script> <!-- НОВОЕ -->
+<script src="js/surveyTaking.js"></script>
 <script src="js/clients.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/feedback.js"></script>
 <script src="js/main.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/triggers.js"></script>
-<script src="js/surveyTypes.js"></script>
-<script src="js/excelExport.js"></script>
-<script src="js/roleAuth.js"></script>
 
-<!-- Telegram WebApp SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<!-- SheetJS для Excel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>

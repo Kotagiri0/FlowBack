@@ -1,135 +1,141 @@
-// Analytics Manager with Excel Export Button
 const AnalyticsManager = {
-    roleChart: null,
+  render() {
+    const section = document.getElementById('analytics');
 
-    async render() {
-        const analytics = await API.getAnalytics();
-
-        const analyticsSection = document.getElementById('analytics');
-        analyticsSection.innerHTML = `
-      <h2 style="margin-bottom: 20px;">Детальная аналитика</h2>
-
-      <div class="export-options">
-        <button class="btn btn-secondary" onclick="AnalyticsManager.exportData('csv')">
-          📊 Экспорт CSV
-        </button>
-        <button class="btn btn-secondary" onclick="AnalyticsManager.exportData('xlsx')">
-          📈 Экспорт XLSX
-        </button>
-        <button class="btn btn-primary" onclick="ExcelExport.exportClientData()">
-          📊 Экспорт Excel
-        </button>
+    section.innerHTML = `
+      <div class="section-header">
+        <div>
+          <h2>📈 Аналитика</h2>
+          <p style="color: #666;">Визуализация метрик и трендов</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="AnalyticsManager.exportData('csv')">
+            📄 Экспорт CSV
+          </button>
+          <button class="btn btn-secondary" onclick="AnalyticsManager.exportData('xlsx')">
+            📊 Экспорт XLSX
+          </button>
+        </div>
       </div>
 
-      <div class="chart-container" style="margin-top: 20px;">
-        <h3 style="margin-bottom: 15px;">Сегментация по ролям</h3>
-        <canvas id="roleChart" style="max-height: 300px;"></canvas>
-      </div>
-
+      <!-- Сводка метрик -->
       <div class="stats-grid">
-        <div class="stat-box">
-          <h4>NPS - ЛПР</h4>
-          <div class="value">72</div>
-        </div>
-        <div class="stat-box">
-          <h4>NPS - Техспецы</h4>
-          <div class="value">65</div>
-        </div>
-        <div class="stat-box">
-          <h4>NPS - Бизнес-юзеры</h4>
-          <div class="value">58</div>
-        </div>
-        <div class="stat-box">
-          <h4>Средний CSAT</h4>
-          <div class="value">4.3</div>
-        </div>
+        ${this.renderMetricCard('NPS', State.metrics.nps)}
+        ${this.renderMetricCard('CSAT', State.metrics.csat)}
+        ${this.renderMetricCard('CES', State.metrics.ces)}
       </div>
 
-      <div class="nlp-topics-section">
-        <h3 style="margin-bottom: 15px;">Топ-3 темы из фидбека (NLP)</h3>
-        ${analytics.topTopics.map(topic => this.renderTopicItem(topic)).join('')}
+      <!-- Графики -->
+      <div class="card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px;">Динамика метрик</h3>
+        <canvas id="metricsChart" height="100"></canvas>
+      </div>
+
+      <!-- Распределение по ролям -->
+      <div class="card" style="margin-top: 30px;">
+        <h3 style="margin-bottom: 20px;">Ответы по ролям</h3>
+        <canvas id="rolesChart" height="100"></canvas>
       </div>
     `;
 
-        setTimeout(() => this.initRoleChart(), 100);
-    },
+    setTimeout(() => {
+      this.initCharts();
+    }, 100);
+  },
 
-    renderTopicItem(topic) {
-        const trendIcons = { up: '↑', down: '↓', stable: '→' };
-        const trendTexts = { up: 'улучшение', down: 'ухудшение', stable: 'стабильно' };
+  renderMetricCard(name, data) {
+    const trendIcon = data.trend.startsWith('+') ? '📈' : '📉';
+    const trendColor = data.trend.startsWith('+') ? '#10b981' : '#ef4444';
 
-        return `
-      <div class="feedback-item">
-        <div class="feedback-header">
-          <strong>${topic.topic}</strong>
-          <span class="sentiment ${topic.sentiment}">${this.getSentimentText(topic.sentiment)}</span>
+    return `
+      <div class="card" style="text-align: center;">
+        <h3 style="color: #666; font-size: 16px; margin-bottom: 10px;">${name}</h3>
+        <div style="font-size: 36px; font-weight: bold; color: ${Utils.getMetricColor(name.toLowerCase(), data.current)}; margin-bottom: 10px;">
+          ${data.current}${name === 'NPS' ? '' : ''}
         </div>
-        <p style="color: #666;">
-          Упоминается в ${topic.mentions} отзывах • 
-          Тренд: ${trendIcons[topic.trend]} ${trendTexts[topic.trend]}
-        </p>
+        <div style="color: ${trendColor};">
+          ${trendIcon} ${data.trend}
+        </div>
       </div>
     `;
-    },
+  },
 
-    getSentimentText(sentiment) {
-        const texts = {
-            positive: 'Позитивная',
-            neutral: 'Нейтральная',
-            negative: 'Негативная'
-        };
-        return texts[sentiment] || sentiment;
-    },
+  initCharts() {
+    this.initMetricsChart();
+    this.initRolesChart();
+  },
 
-    initRoleChart() {
-        const canvas = document.getElementById('roleChart');
-        if (!canvas) return;
+  initMetricsChart() {
+    const canvas = document.getElementById('metricsChart');
+    if (!canvas) return;
 
-        if (this.roleChart) {
-            this.roleChart.destroy();
-        }
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+        datasets: [
+          {
+            label: 'NPS',
+            data: State.metrics.nps.history,
+            borderColor: '#667eea',
+            tension: 0.4
+          },
+          {
+            label: 'CSAT',
+            data: State.metrics.csat.history.map(v => v * 20),
+            borderColor: '#10b981',
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top' } }
+      }
+    });
+  },
 
-        this.roleChart = new Chart(canvas, {
-            type: 'doughnut',
-            data: {
-                labels: ["ЛПР", "Техспецы", "Бизнес-юзеры"],
-                datasets: [{
-                    data: [42, 28, 30],
-                    backgroundColor: [
-                        CONFIG.CHART_COLORS.primary,
-                        CONFIG.CHART_COLORS.tertiary,
-                        CONFIG.CHART_COLORS.success
-                    ],
-                    borderWidth: 2,
-                    borderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
-            }
-        });
-    },
+  initRolesChart() {
+    const canvas = document.getElementById('rolesChart');
+    if (!canvas) return;
 
-    async exportData(format) {
-        const clients = await API.getClients();
-        const surveys = await API.getSurveys();
-        const feedback = await API.getFeedback();
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['ЛПР', 'Техспец внедрения', 'Техспец сопровождения', 'Бизнес-пользователь'],
+        datasets: [{
+          label: 'Количество ответов',
+          data: [12, 19, 8, 15],
+          backgroundColor: ['#667eea', '#10b981', '#f59e0b', '#3b82f6']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } }
+      }
+    });
+  },
 
-        if (format === 'csv') {
-            Utils.exportToCSV(clients, `flowback_clients_${Date.now()}.csv`);
-            Utils.showNotification('Данные экспортированы в CSV');
-        }
-        else if (format === 'xlsx') {
-            if (typeof ExcelExport !== "undefined") {
-                ExcelExport.exportClientData();
-                Utils.showNotification('Экспорт в Excel выполнен');
-            } else {
-                Utils.showNotification('Модуль ExcelExport не подключён');
-            }
-        }
+  exportData(format) {
+    const data = State.feedback.map(fb => ({
+      'ID': fb.id,
+      'Опрос': State.surveys.find(s => s.id === fb.surveyId)?.title || '',
+      'Клиент': State.clients.find(c => c.id === fb.clientId)?.company || '',
+      'Email': fb.userEmail,
+      'Метрика': fb.metric.toUpperCase(),
+      'Оценка': fb.score,
+      'Комментарий': fb.comment,
+      'Дата': Utils.formatDate(fb.submittedAt)
+    }));
+
+    const filename = `feedback_export_${new Date().toISOString().split('T')[0]}.${format}`;
+
+    if (format === 'csv') {
+      Utils.exportToCSV(data, filename);
+    } else if (format === 'xlsx') {
+      Utils.exportToXLSX(data, filename);
     }
+  }
 };

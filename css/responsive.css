@@ -1,61 +1,305 @@
-/* Responsive Design */
+/* Планшеты и ниже */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 15px;
+  }
 
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
+  header h1 {
+    font-size: 24px;
+  }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 
-    .nav-tabs {
-        flex-wrap: wrap;
-    }
+  .nav-tabs {
+    padding: 0 10px;
+  }
 
-    .client-card {
-        grid-template-columns: 1fr;
-    }
+  .tab {
+    padding: 12px 18px;
+    font-size: 13px;
+  }
 
-    .survey-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-md);
-    }
+  table {
+    font-size: 13px;
+  }
 
-    .trigger-config {
-        grid-template-columns: 1fr;
-    }
-
-    .modal-content {
-        width: 95%;
-        padding: var(--spacing-lg);
-    }
+  th, td {
+    padding: 10px;
+  }
 }
 
+/* Мобильные устройства */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  header {
+    padding: 15px 0;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .nav-tabs {
+    padding: 0 5px;
+    gap: 3px;
+  }
+
+  .tab {
+    padding: 10px 12px;
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    min-width: auto;
+  }
+
+  .section-header h2 {
+    font-size: 22px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .metric-scale {
+    gap: 5px;
+  }
+
+  .metric-option {
+    min-width: 45px;
+  }
+
+  .metric-option span {
+    padding: 10px 5px;
+    font-size: 13px;
+  }
+
+  .rating-scale {
+    gap: 8px;
+  }
+
+  .rating-option span {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+  }
+
+  /* Таблицы на мобильных */
+  .table-responsive {
+    overflow-x: scroll;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  /* Модальные окна */
+  .modal-content {
+    width: 95%;
+    max-width: none;
+  }
+
+  .modal-header h3 {
+    font-size: 18px;
+  }
+
+  /* Формы */
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Предотвращает зум на iOS */
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  /* Аватар */
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatar-placeholder {
+    font-size: 16px;
+  }
+
+  .avatar-dropdown {
+    right: 0;
+    left: auto;
+  }
+
+  /* Переключатель темы */
+  .theme-switcher {
+    width: 50px;
+    height: 26px;
+  }
+
+  .theme-toggle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .theme-switcher.active .theme-toggle {
+    transform: translateX(24px);
+  }
+
+  /* График */
+  canvas {
+    max-height: 250px;
+  }
+
+  /* Быстрые действия */
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Очень маленькие экраны */
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.5em;
-    }
+  header h1 {
+    font-size: 18px;
+  }
 
-    .metric-value {
-        font-size: 2em;
-    }
+  .section-header h2 {
+    font-size: 20px;
+  }
 
-    .container {
-        padding: var(--spacing-sm);
-    }
+  .badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
 
-    header {
-        padding: var(--spacing-md);
-    }
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 
-    .content-section {
-        padding: var(--spacing-lg);
-    }
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .metric-value {
+    font-size: 32px;
+  }
+
+  .metric-scale {
+    flex-direction: column;
+  }
+
+  .metric-option {
+    width: 100%;
+  }
+
+  .rating-scale {
+    justify-content: space-between;
+  }
+}
+
+/* Горизонтальная ориентация на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+  header {
+    padding: 10px 0;
+  }
+
+  .nav-tabs {
+    padding: 0;
+  }
+
+  .tab {
+    padding: 8px 12px;
+  }
+
+  .content-section {
+    padding: 20px 0;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
+
+/* Большие экраны */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1600px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  header h1 {
+    font-size: 36px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+  }
+}
+
+/* Печать */
+@media print {
+  header,
+  .nav-tabs,
+  .btn,
+  .avatar-container,
+  .theme-switcher {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+  }
+
+  .content-section {
+    display: block !important;
+  }
 }

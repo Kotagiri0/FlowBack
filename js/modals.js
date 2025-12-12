@@ -1,13 +1,19 @@
-// Modal Manager
-const ModalManager = {
+const Modals = {
   init() {
+    this.setupCloseButtons();
+    this.setupOverlayClick();
+  },
+
+  setupCloseButtons() {
     document.querySelectorAll('.close-modal').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const modalId = e.target.dataset.modal;
+      btn.addEventListener('click', () => {
+        const modalId = btn.getAttribute('data-modal');
         this.close(modalId);
       });
     });
+  },
 
+  setupOverlayClick() {
     document.querySelectorAll('.modal').forEach(modal => {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
@@ -15,18 +21,12 @@ const ModalManager = {
         }
       });
     });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closeAll();
-      }
-    });
   },
 
   open(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      modal.classList.add('active');
+      modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
   },
@@ -34,33 +34,8 @@ const ModalManager = {
   close(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      this.resetForm(modalId);
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
     }
-  },
-
-  closeAll() {
-    document.querySelectorAll('.modal.active').forEach(modal => {
-      modal.classList.remove('active');
-    });
-    document.body.style.overflow = '';
-  },
-
-  resetForm(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-
-    modal.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
-      input.value = '';
-    });
-
-    modal.querySelectorAll('select').forEach(select => {
-      select.selectedIndex = 0;
-    });
-
-    modal.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-      checkbox.checked = false;
-    });
   }
 };

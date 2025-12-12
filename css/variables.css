@@ -1,55 +1,49 @@
-/* CSS Variables */
 :root {
-    /* Основные цвета */
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --tertiary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  /* Основные цвета */
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --info-color: #3b82f6;
 
-    /* Цвета */
-    --primary-color: #667eea;
-    --secondary-color: #764ba2;
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Фон */
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
 
-    /* Нейтральные цвета */
-    --white: #ffffff;
-    --gray-50: #f9f9f9;
-    --gray-100: #f0f0f0;
-    --gray-200: #e0e0e0;
-    --gray-400: #999999;
-    --gray-600: #666666;
-    --gray-800: #333333;
+  /* Текст */
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
 
-    /* Семантические цвета */
-    --success: #4caf50;
-    --warning: #ff9800;
-    --error: #f44336;
+  /* Границы */
+  --border-color: #e5e7eb;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
 
-    /* Размеры */
-    --border-radius: 8px;
-    --border-radius-lg: 12px;
-    --border-radius-xl: 15px;
+  /* Тени */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
 
-    /* Отступы */
-    --spacing-xs: 5px;
-    --spacing-sm: 10px;
-    --spacing-md: 15px;
-    --spacing-lg: 20px;
-    --spacing-xl: 30px;
+  /* Отступы */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
 
-    /* Тени */
-    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  /* Шрифты */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
 
-    /* Переходы */
-    --transition: all 0.3s ease;
-
-    /* Шрифты */
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-size-sm: 0.85em;
-    --font-size-base: 1em;
-    --font-size-lg: 1.2em;
-    --font-size-xl: 2em;
-    --font-size-2xl: 2.5em;
+  /* Переходы */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
 }
